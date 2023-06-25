@@ -1,0 +1,107 @@
+\documentclass[12pt, oneside]{article} 
+\usepackage{amsmath, amsthm, amssymb, calrsfs, wasysym, verbatim, bbm, color, graphics, geometry, array, tikz}
+\usepackage{epsfig}
+\usepackage{epic,eepic} 
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+%\usetikzlibrary{arrows,positioning,shapes,backgrounds,fit}
+
+\geometry{tmargin=.5in, bmargin=.75in, lmargin=.75in, rmargin = .75in}  
+
+
+\newcommand{\ds}{\displaystyle}
+
+% Professor Jack Burkart's Commands
+\newcommand{\bH}{\mathbb{H}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\pa}{\partial}
+
+\DeclareMathOperator{\diam}{diam}
+%\DeclareMathOperator{\Hdim}{Hdim}
+%\DeclareMathOperator{\Pdim}{Pdim}
+%\DeclareMathOperator{\UMdim}{\overline{Mdim}}
+%\DeclareMathOperator{\dist}{dist}
+%\DeclareMathOperator{\cl}{Cl}
+\DeclareMathOperator{\cantor}{\mathcal{C}_3}
+%\DeclareMathOperator{\cantorcorner}{\mathcal{C}_4}
+%\DeclareMathOperator{\SierpinskiCarpet}{\mathcal{S}\mathcal{C}}
+%\DeclareMathOperator{\SierpinskiGasket}{\mathcal{S}\mathcal{G}}
+%\DeclareMathOperator{\Snowflake}{\mathcal{V}}
+
+\usepackage{listings}
+
+%\usepackage{hyperref}
+%\newcommand{\ulfrule}{\xleaders\hbox{\underline{ }}\hfill\kern0pt}
+\usepackage[ruled]{algorithm2e}
+\renewcommand{\thealgocf}{}
+
+
+
+\title{Travelling Doxa Leader} % Title of the document
+\author{Hong Kai Ng} % Put name here
+\date{} % Put date here, or leave the bracker empty to ommit date
+
+\begin{document}
+
+\maketitle
+
+\hrule
+\vspace{20pt}
+\noindent A bunch of students want to attend a church event, and we have a group of drivers who are willing to pick students up and drive them to church. Assign drivers to riders to mimimize the maximum amount of time any driver would have to drive for. 
+
+\vspace{20pt}
+\hrule
+
+
+\section{Travelling Doxa Leaders}
+Idea: A bunch of students want to attend a church event, and we have a group of drivers who are willing to pick students up and drive them to church. Assign drivers to riders to mimimize aggregate travel distance / time. \\\\
+Problem Statement
+\begin{enumerate}
+  \item Set of drivers $\{d_1, d_2, ... d_n\}$. Each driver can pick up a different number of riders, for example one driver might be able to pick up 3 riders and another one might be able to pickup 5. This will be part of the input as well. 
+  \item Set of riders $\{r_1, r_2, ... r_m\}$, assume $m \geq n$. 
+  \item A destination $t$. 
+  \item We know the distance between all drivers, the distance between all riders, the distance from each driver / rider to $t$, and the distance between each driver and each rider. (Basically we have a map with all these inputs) Note to self * Will it be much more complicated if this is not metric? Distance on a map is generally not symmetric. 2 notions of distance I can think of is time or actual distance in kilometres. 
+  \item Goal: Minimize driving time / distance accross all drivers combined. 
+\end{enumerate}
+
+Ideas: 
+\begin{enumerate}
+  \item Clustering : Does not really take $t$ into account, just cares about grouping
+  \item Greedy : I don't think it'll work out. 
+  \item Maybe I can resort to DP? 
+  \item Define a graph. Starting from driver nodes, make sure ALL rider nodes get covered before the drivers heads to their final destination. Basically all the nodes in the graph would have to be covered. 
+  \item Try a DP approach, but a simpler problem, where there's 1 driver and 4 riders, and we just have to figure out the squences. 
+  \item After that, try another DP approach where the driver needs to pick 4 riders from a group of 5. 
+  \item From there, maybe try 2 riders from a group of 7 ? 
+  \item If any driver - rider pair was decided beforehand, we could just make the driver START from that rider, with one less capacity. 
+\end{enumerate}
+
+Actually, the problem statement should not be to minimize the maximum any amount of driver would have to drive, but to minimize the driving time of all drivers combined? \\ 
+No wait, we could have someone not pick up anyone too, that's fine...? Because that would mean that person is coming from far away, hence minimizing the maximum time any driver would have to drive for would be a good goal. 
+
+Assumptions : 
+\begin{enumerate}
+  \item All the drivers in the problem are going to attend the event. 
+  \item We could have a driver not pick up anyone if that results in an optimal solution. 
+  \item We WILL have enough aggregate capacity accross all drivers to pick up everyone. 
+
+\end{enumerate}
+
+Maximizing travel distance savings. Travel distance saving is the difference between the distance traveled when participants share a ride and when they travel by themselves. 
+Ride matching algorithm.
+
+modeling it using a traditional maximum-weight bipartite match- ing algorith
+
+\end{document}

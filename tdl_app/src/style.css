@@ -1,0 +1,226 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.main{
+    padding: 20px;
+}
+
+nav {
+    height: 61px;
+    display: flex;
+    align-items: center; /* Align-items is for vertical alignment */
+    box-shadow: 0px 3px 7.4px rgba(0,0,0,0.1);
+    padding: 0px 20px;
+    background-color: #B0D1E3;
+    color: white;
+}
+
+#assign-ride-button {
+    margin-left: auto;
+    font-size: 15px;
+    background: rgba(245, 83, 83, 0.78);
+    width: 135px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    border: 0px;
+}
+
+.log-in-message{
+    font-weight: 300;
+    font-size: 13px;
+    text-align: center;
+}
+
+.log-in-message a:link {
+    text-decoration: none;
+}
+
+.log-in-message a:visited {
+    text-decoration: none;
+}
+
+.log-in-message p{
+    margin: 1px;
+}
+
+
+
+/*
+form{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 15px 15px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+*/
+
+/*
+input[type="text"] {
+    margin-bottom: 15px;
+    height: 30px;
+    text-indent: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+}
+*/
+
+.sign-up-form{
+    padding: 15px 15px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+    border: 1px solid rgba(0,0,0,0.24);
+    border-radius: 22px;
+    width: 326px; /* These might be bad values */
+    height: 544px;
+    margin-top: 25px;
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sign-up-form h3 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+.sign-up-form input{
+    /*width: 268px; */
+    height: 39px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.24);
+    margin-bottom: 15px;
+    text-indent: 10px;
+    display: block;
+    width: 96%;
+    overflow-y: scroll;
+    flex: 0 0 auto;
+}
+
+.field-titles {
+    margin-bottom: 5px;
+    flex: 0 0 auto;
+}
+
+.submit-button{
+    background: #AFADF9;
+    width: 127px;
+    height: 30px;
+    border-radius : 8px;
+    border: 0px;
+    align-self: center;
+    flex: 0 0 auto;
+    color: white;
+    font-weight: 700;
+}
+/*
+.event{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 20px;
+}
+*/
+
+.event{
+    text-align: center;
+}
+
+.event h2 {
+    margin-bottom: 0px;
+    font-size: 24px; /* This is default for he btw */
+    font-weight: 600; /* This is also default for h2 */
+}
+
+.event h3{
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.create-account-page h2 {
+    margin-bottom: 0px;
+    margin-top: 30px;
+    font-size: 24px; /* This is default for he btw */
+    font-weight: 600; /* This is also default for h2 */
+    text-align: center;
+}
+
+.log-in-form{
+    padding: 15px 15px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+    border: 1px solid rgba(0,0,0,0.24);
+    border-radius: 22px;
+    width: 300px; /* These might be bad values */
+    height: 280px;
+    margin-top: 25px;
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.log-in-form h3 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+.log-in-form input{
+    /*width: 268px; */
+    height: 39px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.24);
+    margin-bottom: 15px;
+    text-indent: 10px;
+    display: block;
+    width: 96%;
+    overflow-y: scroll;
+    flex: 0 0 auto;
+}
+
+.log-in-form a:link {
+    text-decoration: none;
+}
+
+.log-in-form a:visited {
+    text-decoration: none;
+}
+
+.page-title{
+    margin-bottom: 0px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 24px; /* This is default for he btw */
+    font-weight: 600; /* This is also default for h2 */
+    text-align: center;
+    width: 85%
+}
