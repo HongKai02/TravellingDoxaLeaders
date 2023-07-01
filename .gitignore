@@ -1,5 +1,5 @@
 # IGnore pyc files 
-*.pyc
+#*.pyc
 
 .DS_Store
 
