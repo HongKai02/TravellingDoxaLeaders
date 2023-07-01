@@ -224,3 +224,39 @@ input[type="text"] {
     text-align: center;
     width: 85%
 }
+
+.list-of-riders{
+    border: 1px solid black;
+    padding: 0px;
+    margin: 18px;
+    height: 38vh;
+    overflow-y: scroll;
+}
+
+ul {
+    /*display: inline-block;  ==> Seems to mess with the last border line */
+    /*padding: 10px;*/
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li{
+    display: flex;
+    border-bottom: 1px solid black;
+    height: 33px;
+    font-size: 16px;
+    font-weight: 300;
+    align-items: center;
+    padding: 12px;
+}
+
+li:last-child{
+    border-bottom: none;
+}
+
+.rider-list-info-icon{
+    margin-left: auto;
+}
+
