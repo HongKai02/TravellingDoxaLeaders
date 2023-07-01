@@ -7,3 +7,4 @@ def RiderList(request):
     data = Rider.objects.all()
     serializer = RiderSerializer(data, many=True)
     return JsonResponse({'riders': serializer.data})
+# sup
