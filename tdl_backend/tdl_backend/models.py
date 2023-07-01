@@ -54,4 +54,7 @@ class Event(models.Model):
     zipcode = models.CharField(max_length = 15)
     state = models.CharField(max_length=20)
 
-
+class RiderRSVP(models.Model):
+    riderID = models.ForeignKey('Rider', on_delete=models.SET_NULL, blank=True, null=True)
+    eventID = models.ForeignKey('Event', on_delete=models.SET_NULL, blank=True, null=True)
+    eventDate = models.DateField()
