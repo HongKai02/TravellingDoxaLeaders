@@ -19,6 +19,7 @@ def RiderRSVPList(request):
     nextFridayDate = today + datetime.timedelta( (4-today.weekday()) % 7)
     thisEventID = Event.objects.get(date = nextFridayDate)
     data = RiderRSVP.objects.filter(eventID = thisEventID)
+    #data = RiderRSVP.objects.all()
     serializer = RiderRSVPSerializer(data, many=True)
     return JsonResponse({'RSVPedRiders': serializer.data})
 

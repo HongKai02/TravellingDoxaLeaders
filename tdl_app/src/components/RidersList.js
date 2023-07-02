@@ -1,8 +1,32 @@
 import {useEffect, useState} from 'react'
 import {PiInfoThin} from "react-icons/pi"
 
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+  
+function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions());
+      }
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return windowDimensions;
+  }
+
 function RidersList(){
     const [riders, setRiders] = useState();
+    const {height, width} = useWindowDimensions();
 
     useEffect(() => {
         console.log('Fettching...')
@@ -13,12 +37,14 @@ function RidersList(){
         })
     }, []) // The empty list here is to specify that this effect should only run once, on load
 
+    var numberOfRiders = riders ? riders.length : 0
+    var listFull = numberOfRiders * 38 > height * 0.38 ? true : false
+
     return(
         <div>
             <div className="list-of-riders">
-                <ul>
+                <ul className={listFull && "rider-list-full"}>
                     {riders ? riders.map((rider) => {
-                        console.log(rider)
                         return <li>{rider.riderID.firstName} {rider.riderID.lastName} <span className="rider-list-info-icon"><PiInfoThin /></span></li>;
                     }) : null}
                 </ul>

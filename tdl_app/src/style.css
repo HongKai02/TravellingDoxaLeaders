@@ -258,6 +258,10 @@ li:last-child{
 }
 */
 
+.rider-list-full li:last-child{
+    border-bottom: none;
+}
+
 .rider-list-info-icon{
     margin-left: auto;
 }
