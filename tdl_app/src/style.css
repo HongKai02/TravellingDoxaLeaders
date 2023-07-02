@@ -245,16 +245,18 @@ ul {
 li{
     display: flex;
     border-bottom: 1px solid black;
-    height: 33px;
+    height: 38px;
     font-size: 16px;
     font-weight: 300;
     align-items: center;
     padding: 12px;
 }
 
+/* Having this made it so that when there's less people than the lists' max capacity, the last one looks weird
 li:last-child{
     border-bottom: none;
 }
+*/
 
 .rider-list-info-icon{
     margin-left: auto;
