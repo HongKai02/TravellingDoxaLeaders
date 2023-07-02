@@ -51,7 +51,7 @@ function RidersList(){
             </div>
             <div>
                 <a href="Google.com">Edit List</a>
-                <p>A total of {riders && riders.length} people signed up, and at least {riders && Math.ceil(riders.length/4)} cars will be needed</p>
+                <p>A total of {riders && riders.length} people signed up, and at least {Math.ceil(riders.length/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed</p>
                 <button className="submit-button">Log In</button>
             </div>
             
