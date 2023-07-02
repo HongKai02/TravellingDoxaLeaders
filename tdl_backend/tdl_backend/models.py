@@ -49,12 +49,18 @@ class Event(models.Model):
     date = models.DateField()
     eventTitle = models.CharField(max_length = 50)
     addressLine1 = models.CharField(max_length = 80)
-    addressLine2 = models.CharField(max_length = 80)
+    addressLine2 = models.CharField(max_length = 80, blank=True)
     city = models.CharField(max_length=20)
     zipcode = models.CharField(max_length = 15)
     state = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.eventTitle + str(self.date)
 
 class RiderRSVP(models.Model):
     riderID = models.ForeignKey('Rider', on_delete=models.SET_NULL, blank=True, null=True)
     eventID = models.ForeignKey('Event', on_delete=models.SET_NULL, blank=True, null=True)
     eventDate = models.DateField()
+
+    def __str__(self):
+        return self.riderID.firstName
