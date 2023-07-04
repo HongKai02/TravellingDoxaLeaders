@@ -16,21 +16,20 @@ function AssignRides(){
         setRiderPage(true)
     }
 
-    var content
-    if (riderPage){
-        content = <>
-                    <p className="page-title"> Here are the people who signed up for this week's family group </p>
-                        <RidersList 
-                            onNextClick={handleNextClick}
-                    />
-                  </>
-    }
-    else {
-        content = <>
-                    <p className="page-title"> Who will be driving this week? At least x drivers needed </p>
-                    <DriversList />
-                  </>
-    }
+    // Set if the rider list page or driver list page should be displayed
+    var content = riderPage ? 
+    <>
+        <p className="page-title"> Here are the people who signed up for this week's family group </p>
+        <RidersList 
+            onNextClick={handleNextClick}
+        />
+    </> 
+    :
+    <>
+        <p className="page-title"> Who will be driving this week? At least x drivers needed </p>
+        <DriversList />
+    </>
+
 
     return(
         
