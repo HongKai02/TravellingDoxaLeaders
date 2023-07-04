@@ -26,7 +26,7 @@ function LogInForm(){
                 <p><Link to="/ForgotPassword"> Forgot password ? </Link></p>
                 <p>No account? <Link to="/CreateAccount">Create one now!</Link></p>
             </div>
-            <button className="submit-button">Log In</button>
+            <button className="default-button">Log In</button>
         </form>
     )
 }

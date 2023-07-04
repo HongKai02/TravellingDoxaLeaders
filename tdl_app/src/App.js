@@ -5,7 +5,11 @@ import LogInPage from "./pages/LogInPage"
 import AssignRides from "./pages/AssignRides"
 import ForgotPassword from "./pages/ForgotPassword"
 
+
 function App(){
+
+  // import ChooseDrivers from "./pages/ChooseDrivers"
+  //<Route path="/ChooseDrivers" element={<ChooseDrivers />} />
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -13,6 +17,7 @@ function App(){
       <Route path ="/LogInPage" element={<LogInPage />} />
       <Route path ="/AssignRides" element={<AssignRides />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      
     </Routes>
   )
 }

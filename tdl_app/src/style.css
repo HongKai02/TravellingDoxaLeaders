@@ -123,7 +123,7 @@ input[type="text"] {
     flex: 0 0 auto;
 }
 
-.submit-button{
+.default-button{
     background: #AFADF9;
     width: 127px;
     height: 30px;
@@ -364,4 +364,15 @@ li:first-child .speech-box:before {
     border-bottom: 5px solid transparent;
     right: -9px;
     top: 5px;
+}
+
+.rider-list-add-rider{
+    border-bottom: none;
+    font-size: 16px;
+    margin-left: 0;
+    padding: 7px;
+}
+
+a {
+    text-decoration: none;
 }

@@ -75,7 +75,7 @@ function CreateAccountForm(){
                 placeholder="Enter person's name"
                 
             />
-            <button className="submit-button">Submit</button>
+            <button className="default-button">Submit</button>
         </form>
     )
 }

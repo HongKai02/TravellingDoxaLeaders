@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import RiderRow from './RiderRow';
-
+import {MdAddCircle} from "react-icons/md"
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -32,14 +33,12 @@ function useWindowDimensions() {
 
 
 
-function RidersList(){
+function RidersList(props){
     const [riders, setRiders] = useState();
     const {height, width} = useWindowDimensions();
     const [rowClicked, setRowClicked] = useState();
-    const [editMode, setEditMode] = useState();
-
-    //let counter = 0;
-    //console.log('counting re-renders', (counter +=1));
+    const [editMode, setEditMode] = useState(false);
+    const navigate = useNavigate();
 
     function handleInfoClick(riderID){
         // If previous one clicked is the same one, then set row clicked to null so it closes it
@@ -48,19 +47,30 @@ function RidersList(){
 
         // If previous one clicked was a different one, then set row clicked to whichever element triggered this event
 
+        /*
         setRowClicked((prevState) => {
             if (prevState == riderID) return null
             else return riderID
         })
+        */
 
-        //((prevState) => riderID
-            //(prevState == riderID) ?  null : riderID
-        //)
+        setRowClicked((prevState) => 
+            (prevState == riderID) ?  null : riderID
+        )
     }
 
     function handleEditListClick(){
-        console.log("Edit list clicked")
-        
+        setEditMode(true)
+        setRowClicked(null)
+    }
+
+    function handleSaveChangesClick(){
+        setEditMode(false)
+    }
+
+    // This function is likely not needed, it's left in place in case we were to go with the routing route
+    function handleNextClick(){
+        navigate("/ChooseDrivers")
     }
 
     useEffect(() => {
@@ -86,20 +96,20 @@ function RidersList(){
                                     key={index}
                                     riderDetails = {rider}
                                     handleClick = {handleInfoClick}
-                                    index={index}
                                     isClicked = {rowClicked}
+                                    editMode = {editMode}
                                     
                                 />
                             </li>
                         )
-                        
                     }) : null}
+                    {editMode ? <li className="rider-list-add-rider"><MdAddCircle color='green'/> &nbsp; Add participants</li> : null}
                 </ul>
             </div>
             <div>
                 <a href="#" onClick={handleEditListClick}>Edit List</a>
                 <p>A total of {numberOfRiders} people signed up, and at least {Math.ceil(numberOfRiders/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed</p>
-                <button className="submit-button">Log In</button>
+                {editMode ? <button className="default-button" onClick={handleSaveChangesClick}>Save Changes</button> : <button className="default-button" onClick={props.onNextClick}>Next</button>}
             </div>
             
             
