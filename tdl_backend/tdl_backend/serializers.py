@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from tdl_backend.models import Rider, RiderRSVP, Event
+from tdl_backend.models import Rider, RiderRSVP, Event, Driver
 
 class RiderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +17,9 @@ class RiderRSVPSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
+        fields = '__all__'
+
+class DriverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
         fields = '__all__'

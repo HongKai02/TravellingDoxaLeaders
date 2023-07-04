@@ -1,6 +1,6 @@
-from tdl_backend.models import Rider, RiderRSVP, Event
+from tdl_backend.models import Rider, RiderRSVP, Event, Driver
 from django.http import JsonResponse
-from tdl_backend.serializers import RiderSerializer, RiderRSVPSerializer, EventSerializer
+from tdl_backend.serializers import RiderSerializer, RiderRSVPSerializer, EventSerializer, DriverSerializer
 import datetime 
 
 def EventDetails(request):
@@ -23,3 +23,7 @@ def RiderRSVPList(request):
     serializer = RiderRSVPSerializer(data, many=True)
     return JsonResponse({'RSVPedRiders': serializer.data})
 
+def DriverList(request):
+    data = Driver.objects.all()
+    serializer = DriverSerializer(data, many=True)
+    return JsonResponse({'drivers': serializer.data})

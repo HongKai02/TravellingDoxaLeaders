@@ -25,22 +25,24 @@ class Rider(models.Model):
 
 
 class Driver(models.Model):
-    firstName = models.CharField
     firstName = models.CharField(max_length = 30)
-    lastName = models.CharField(max_length = 30)
-    phoneNumber = models.CharField(max_length = 20)
-    addressLine1 = models.CharField(max_length = 100)
+    lastName = models.CharField(max_length = 30, blank=True)
+    phoneNumber = models.CharField(max_length = 20, blank=True)
+    addressLine1 = models.CharField(max_length = 100, blank=True)
     addressLine2 = models.CharField(max_length = 100, blank=True)
-    city = models.CharField(max_length=20)
-    zipcode = models.CharField(max_length = 15)
-    state = models.CharField(max_length=20)
-    rideBuddy1 = models.CharField(max_length= 30, blank=True) # Note that this should be linked to another rider's first and last name x
-    rideBuddy2 = models.CharField(max_length= 30, blank=True)
-    rideBuddy3= models.CharField(max_length= 30, blank=True)
-    rideBuddy4 = models.CharField(max_length= 30, blank=True)
+    city = models.CharField(max_length=20, blank=True)
+    zipcode = models.CharField(max_length = 15, blank=True)
+    state = models.CharField(max_length=20, blank=True)
+    preferredRider1 = models.ForeignKey('Rider', on_delete=models.SET_NULL, related_name='preferredRider1', blank=True, null=True)
+    preferredRider2 = models.ForeignKey('Rider', on_delete=models.SET_NULL, related_name='preferredRider2', blank=True, null=True)
+    preferredRider3 = models.ForeignKey('Rider', on_delete=models.SET_NULL, related_name='preferredRider3', blank=True, null=True)
+    preferredRider4 = models.ForeignKey('Rider', on_delete=models.SET_NULL, related_name='preferredRider4', blank=True, null=True)
     longitude = models.CharField(max_length = 20, blank=True)
     latitude = models.CharField(max_length = 20, blank=True)
-    carCapacity = models.IntegerField()
+    carCapacity = models.IntegerField(blank=True, default=4)
+
+    def __str__(self):
+        return self.firstName
 
 
     
