@@ -1,5 +1,9 @@
 import {useEffect, useState} from 'react'
-import {PiInfoThin} from "react-icons/pi"
+import RiderRow from './RiderRow';
+
+
+
+
 
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -7,7 +11,9 @@ function getWindowDimensions() {
       width,
       height
     };
-  }
+}
+
+
   
 function useWindowDimensions() {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
@@ -22,14 +28,43 @@ function useWindowDimensions() {
     }, []);
   
     return windowDimensions;
-  }
+}
+
+
 
 function RidersList(){
     const [riders, setRiders] = useState();
     const {height, width} = useWindowDimensions();
+    const [rowClicked, setRowClicked] = useState();
+    const [editMode, setEditMode] = useState();
+
+    //let counter = 0;
+    //console.log('counting re-renders', (counter +=1));
+
+    function handleInfoClick(riderID){
+        // If previous one clicked is the same one, then set row clicked to null so it closes it
+
+        // If previous one clicked is null, then set row clicked to whichever element triggerred this event
+
+        // If previous one clicked was a different one, then set row clicked to whichever element triggered this event
+
+        setRowClicked((prevState) => {
+            if (prevState == riderID) return null
+            else return riderID
+        })
+
+        //((prevState) => riderID
+            //(prevState == riderID) ?  null : riderID
+        //)
+    }
+
+    function handleEditListClick(){
+        console.log("Edit list clicked")
+        
+    }
 
     useEffect(() => {
-        console.log('Fettching...')
+        console.log("Fetching data...")
         fetch('http://127.0.0.1:8000/api/rsvpedriders/')
         .then((response) => response.json())
         .then((data) => {
@@ -43,15 +78,27 @@ function RidersList(){
     return(
         <div>
             <div className="list-of-riders">
-                <ul className={listFull && "rider-list-full"}>
-                    {riders ? riders.map((rider) => {
-                        return <li>{rider.riderID.firstName} {rider.riderID.lastName} <span className="rider-list-info-icon"><PiInfoThin /></span></li>;
+                <ul className={listFull ? "rider-list-full" : undefined}>
+                    {riders ? riders.map((rider, index) => {
+                        return (
+                            <li key={index}>
+                                <RiderRow 
+                                    key={index}
+                                    riderDetails = {rider}
+                                    handleClick = {handleInfoClick}
+                                    index={index}
+                                    isClicked = {rowClicked}
+                                    
+                                />
+                            </li>
+                        )
+                        
                     }) : null}
                 </ul>
             </div>
             <div>
-                <a href="Google.com">Edit List</a>
-                <p>A total of {riders && riders.length} people signed up, and at least {Math.ceil(riders.length/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed</p>
+                <a href="#" onClick={handleEditListClick}>Edit List</a>
+                <p>A total of {numberOfRiders} people signed up, and at least {Math.ceil(numberOfRiders/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed</p>
                 <button className="submit-button">Log In</button>
             </div>
             
