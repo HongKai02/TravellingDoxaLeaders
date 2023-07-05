@@ -5,29 +5,24 @@ import {MdRemoveCircle} from "react-icons/md"
 
 
 
-function RiderRow(props){
-    console.log("Rider row was rendered")
-   
+function DriverRow(props){   
     return(
         <>
-            {props.riderDetails.riderID.firstName} {props.riderDetails.riderID.lastName}
+            <input type="checkbox" className="driver-row-checkbox" value={props.driverDetails.id} onChange={props.handleCheck}/>
+            {props.driverDetails.firstName} {props.driverDetails.lastName}
             {props.editMode ? 
             <span className="rider-list-info-icon"><MdRemoveCircle color="red"/></span> : 
-            <span className="rider-list-info-icon"><PiInfoThin onClick={() => {props.handleClick(props.riderDetails.riderID.riderID, props.index)}} /></span>
+            <div className="rider-list-info-icon">
+                <a href="#" className="add-reduce">+</a>
+                <span className="car-capacity">{props.driverDetails.carCapacity}</span>
+                <a href="#" className="add-reduce">-</a>
+            </div>
             }
-            
-            {props.isClicked === props.riderDetails.riderID.riderID && 
-                <div className="speech-box">
-                    <p className="rider-row-rider-address">
-                    {props.riderDetails.riderID.addressLine1} {props.riderDetails.riderID.addressLine2} {props.riderDetails.riderID.city}, {props.riderDetails.riderID.zipcode}
-                    </p> 
-                </div>
-                
-            }
+
 
         </>
         
     )
 }
 
-export default RiderRow
+export default DriverRow

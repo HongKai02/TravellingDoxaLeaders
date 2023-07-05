@@ -376,3 +376,32 @@ li:first-child .speech-box:before {
 a {
     text-decoration: none;
 }
+
+
+.driver-row-checkbox {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid rgb(75, 57, 57);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+.driver-row-checkbox:checked {
+    background-color: green;
+}
+
+.car-capacity{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.add-reduce{
+    font-size: 17px;
+    font-weight: 400;
+}

@@ -3,10 +3,56 @@ import RidersList from "../components/RidersList"
 import {useEffect, useState} from 'react'
 import DriversList from "../components/DriversList"
 
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+}
 
+function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions());
+      }
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return windowDimensions;
+}
 
 function AssignRides(){
     const [riderPage, setRiderPage] = useState(true)
+    const [riders, setRiders] = useState()
+    const [drivers, setDrivers] = useState()
+    const {height, width} = useWindowDimensions()
+    
+    // Get list of riders
+    useEffect(() => {
+        console.log("Fetching data...")
+        fetch('http://127.0.0.1:8000/api/rsvpedriders/')
+        .then((response) => response.json())
+        .then((data) => {
+            setRiders(data.RSVPedRiders);
+        })
+    }, []) // The empty list here is to specify that this effect should only run once, on load
+
+    // Get list of drivers
+    useEffect(() => {
+        console.log("Fecthinc driver data...")
+        fetch('http://127.0.0.1:8000/api/driver/')
+        .then((response) => response.json())
+        .then((data) => {
+            setDrivers(data.drivers);
+        })
+    }, [])
+
+    var numberOfRiders = riders ? riders.length : 0
 
     function handleNextClick(){
         setRiderPage(false)
@@ -22,14 +68,19 @@ function AssignRides(){
         <p className="page-title"> Here are the people who signed up for this week's family group </p>
         <RidersList 
             onNextClick={handleNextClick}
+            riders = {riders}
+            height={height}
         />
     </> 
     :
     <>
-        <p className="page-title"> Who will be driving this week? At least x drivers needed </p>
-        <DriversList />
+        <p className="page-title"> Who will be driving this week and how many people can they pickup? At least {Math.ceil(numberOfRiders/4)} driver{Math.ceil(numberOfRiders/4) >1 && 's'} needed </p>
+        <DriversList 
+            onBackClick={handleBackClick}
+            drivers = {drivers}
+            height = {height}
+        />
     </>
-
 
     return(
         
