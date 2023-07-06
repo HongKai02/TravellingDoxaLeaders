@@ -20,7 +20,8 @@ from tdl_backend import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/rider/', views.RiderList, name='Rider'),
+    path('api/riders/', views.RiderList, name='Riders'),
+    path('api/rider/<int:id>', views.rider, name='rider'),
     path('api/rsvpedriders/', views.RiderRSVPList, name='RSVPedRiders'),
     path('api/event/', views.EventDetails, name='Event'),
     path('api/driver/', views.DriverList, name='Driver')
