@@ -32,7 +32,7 @@ def DriverList(request):
     serializer = DriverSerializer(data, many=True)
     return JsonResponse({'drivers': serializer.data})
 
-@api_view(['GET', 'POST', 'DELETE'])
+@api_view(['GET', 'POST', 'DELETE']) # POST is the same update
 def rider(request, id):
     try:
         data = Rider.objects.get(pk=id)
