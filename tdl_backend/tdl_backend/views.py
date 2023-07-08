@@ -13,10 +13,19 @@ def EventDetails(request):
 
 @api_view(['GET', 'POST'])
 def RiderList(request):
-    # Invoke serializer (goes form database objects to JSON data) and return to client
-    data = Rider.objects.all()
-    serializer = RiderSerializer(data, many=True)
-    return JsonResponse({'riders': serializer.data})
+    if request.method == 'GET':
+        # Invoke serializer (goes form database objects to JSON data) and return to client
+        data = Rider.objects.all() # data is what we get from the DB
+        serializer = RiderSerializer(data, many=True)
+        return Response({'riders': serializer.data})
+    
+    elif request.method == 'POST':
+        serializer = RiderSerializer(data=request.data) # Providing only one arg ==> replacing the data entirely
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'rider': serializer.data}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 def RiderRSVPList(request):
     today = datetime.date.today()
@@ -32,11 +41,23 @@ def DriverList(request):
     serializer = DriverSerializer(data, many=True)
     return JsonResponse({'drivers': serializer.data})
 
-@api_view(['GET', 'POST', 'DELETE']) # POST is the same update
+@api_view(['GET', 'POST', 'DELETE']) # POST is the same update. Can be used to edit data
 def rider(request, id):
     try:
         data = Rider.objects.get(pk=id)
     except Rider.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    serializer = RiderSerializer(data)
-    return Response({'rider': serializer.data})
+
+    if request.method == 'GET':
+        serializer = RiderSerializer(data)
+        return Response({'rider': serializer.data})
+    elif request.method == 'DELETE':
+        data.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    elif request.method == 'POST':
+        serializer = RiderSerializer(data, data=request.data) # First argument original, second new
+        # Validation
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'riders': serializer.data})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
