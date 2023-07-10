@@ -60,9 +60,9 @@ class Event(models.Model):
         return self.eventTitle + str(self.date)
 
 class RiderRSVP(models.Model):
-    riderID = models.ForeignKey('Rider', on_delete=models.SET_NULL, blank=True, null=True)
+    riderID = models.ForeignKey('Rider', on_delete=models.CASCADE, blank=True, null=True)
     eventID = models.ForeignKey('Event', on_delete=models.SET_NULL, blank=True, null=True)
     eventDate = models.DateField()
 
     def __str__(self):
-        return self.riderID.firstName
+        return str(self.riderID)

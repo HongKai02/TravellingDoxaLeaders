@@ -17,7 +17,7 @@ def RiderList(request):
         # Invoke serializer (goes form database objects to JSON data) and return to client
         data = Rider.objects.all() # data is what we get from the DB
         serializer = RiderSerializer(data, many=True)
-        return Response({'riders': serializer.data})
+        return JsonResponse({'riders': serializer.data})
     
     elif request.method == 'POST':
         serializer = RiderSerializer(data=request.data) # Providing only one arg ==> replacing the data entirely

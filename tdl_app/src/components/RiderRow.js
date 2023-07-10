@@ -5,9 +5,7 @@ import {MdRemoveCircle} from "react-icons/md"
 
 
 
-function RiderRow(props){
-    console.log("Rider row was rendered")
-   
+function RiderRow(props){   
     return(
         <>
             {props.riderDetails.riderID.firstName} {props.riderDetails.riderID.lastName}
