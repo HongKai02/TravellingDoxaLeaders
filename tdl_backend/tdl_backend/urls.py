@@ -24,5 +24,6 @@ urlpatterns = [
     path('api/rider/<int:id>', views.rider, name='rider'),
     path('api/rsvpedriders/', views.RiderRSVPList, name='RSVPedRiders'),
     path('api/event/', views.EventDetails, name='Event'),
-    path('api/driver/', views.DriverList, name='Driver')
+    path('api/driver/', views.DriverList, name='Driver'),
+    path('api/riderRSVP/<int:id>', views.riderRSVP, name='riderRSVP'),
 ]

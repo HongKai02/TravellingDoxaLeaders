@@ -10,7 +10,7 @@ function RiderRow(props){
         <>
             {props.riderDetails.riderID.firstName} {props.riderDetails.riderID.lastName}
             {props.editMode ? 
-            <span className="rider-list-info-icon"><MdRemoveCircle color="red"/></span> : 
+            <span className="rider-list-info-icon"><MdRemoveCircle onClick={() => {props.handleRemoveClick(props.riderDetails.riderID.riderID)}}color="red"/></span> : 
             <span className="rider-list-info-icon"><PiInfoThin onClick={() => {props.handleClick(props.riderDetails.riderID.riderID, props.index)}} /></span>
             }
             

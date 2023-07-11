@@ -52,6 +52,10 @@ function RidersList(props){
         setEditMode(false)
     }
 
+    function handleRemoveClick(riderID){
+        console.log("Remove clicked" + riderID)
+    }
+
     var numberOfRiders = props.riders ? props.riders.length : 0
     var listFull = numberOfRiders * 40 > props.height * 0.38 ? true : false
 
@@ -68,7 +72,7 @@ function RidersList(props){
                                     handleClick = {handleInfoClick}
                                     isClicked = {rowClicked}
                                     editMode = {editMode}
-                                    
+                                    handleRemoveClick = {handleRemoveClick}
                                 />
                             </li>
                         )
