@@ -40,9 +40,11 @@ def RiderRSVPList(request):
 def riderRSVP(request, id):
     today = datetime.date.today()
     nextFridayDate = today + datetime.timedelta( (4-today.weekday()) % 7)
+    #fullData = RiderRSVP.objects.filter(eventID = thisEventID)
     try:
         thisEventID = Event.objects.get(date = nextFridayDate)
         data = RiderRSVP.objects.filter(eventID = thisEventID, riderID = id)
+        fullData = RiderRSVP.objects.filter(eventID = thisEventID)
     except RiderRSVP.DoesNotExist:
         return Response(status = status.HTTP_404_NOT_FOUND)
     
@@ -51,7 +53,9 @@ def riderRSVP(request, id):
         return Response({'riderRSVP': serializer.data})
     elif request.method == 'DELETE':
         data.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        fullListSerializer = RiderRSVPSerializer(fullData, many=True)
+        return JsonResponse({'RSVPedRiders': fullListSerializer.data})
+        #return Response(status=status.HTTP_204_NO_CONTENT)
     elif request.method == 'POST':
         serializer = RiderRSVPSerializer(data, data=request.data, many=True)
         # Validation

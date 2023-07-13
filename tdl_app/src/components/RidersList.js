@@ -53,7 +53,19 @@ function RidersList(props){
     }
 
     function handleRemoveClick(riderID){
-        console.log("Remove clicked" + riderID)
+        console.log("Remove clicked " + riderID)
+        const url = 'http://127.0.0.1:8000/api/riderRSVP/' + riderID;
+        fetch(url, { method: 'DELETE' })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Editing riders went wrong');
+            }
+            return response.json();
+        })
+        .then((data) => {console.log(data)})
+        .catch((e) => {
+            console.log(e);
+        })
     }
 
     var numberOfRiders = props.riders ? props.riders.length : 0

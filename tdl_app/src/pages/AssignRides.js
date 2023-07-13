@@ -38,6 +38,7 @@ function AssignRides(){
         fetch('http://127.0.0.1:8000/api/rsvpedriders/')
         .then((response) => response.json())
         .then((data) => {
+            console.log(data)
             setRiders(data.RSVPedRiders);
         })
     }, []) // The empty list here is to specify that this effect should only run once, on load
