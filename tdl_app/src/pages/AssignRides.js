@@ -88,8 +88,6 @@ function AssignRides(){
         <div>
             <HomeNavbar />
             {content}
-                
-            
         </div>
     )
 }
