@@ -15,6 +15,19 @@ function RidersList(props){
         )
     }
 
+    
+/*
+    useEffect(() => {
+        console.log("Fetching data...")
+        fetch('http://127.0.0.1:8000/api/rsvpedriders/')
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            setRiders(data.RSVPedRiders);
+        })
+    }, []) 
+    */
+
     function handleEditListClick(){
         setEditMode(true)
         setRowClicked(null)
@@ -28,6 +41,16 @@ function RidersList(props){
         setEditMode(false)
     }
 
+    /*
+    function handleDeleteclick(apiRetVal){
+        apiRetVal.then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            props.setRiders(data.RSVPedRiders);
+        })
+    }
+    */
+   
     function handleRemoveClick(riderID){
         console.log("Remove clicked " + riderID)
         const url = 'http://127.0.0.1:8000/api/riderRSVP/' + riderID;
@@ -38,7 +61,7 @@ function RidersList(props){
             }
             return response.json();
         })
-        .then((data) => {console.log(data)})
+        .then((data) => {props.setRiders(data.RSVPedRiders)})
         .catch((e) => {
             console.log(e);
         })

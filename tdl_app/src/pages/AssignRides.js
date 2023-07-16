@@ -71,6 +71,7 @@ function AssignRides(){
             onNextClick={handleNextClick}
             riders = {riders}
             height={height}
+            setRiders = {setRiders}
         />
     </> 
     :
