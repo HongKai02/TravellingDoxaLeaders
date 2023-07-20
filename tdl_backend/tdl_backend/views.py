@@ -99,8 +99,7 @@ def solveRides(request):
     # Get RSVPed rider's names and addresses
     # Brute force it? 
         # if 4 or less, just make it one car
-        # Keep making groups of 4, n^4 but whatever la
-
+ 
         # Think with 8 people first maybe? How would that be bruteforced
        
     try:

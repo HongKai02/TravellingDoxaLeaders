@@ -66,3 +66,16 @@ class RiderRSVP(models.Model):
 
     def __str__(self):
         return str(self.riderID)
+
+class RiderToRiderTravelDistance(models.Model):
+    fromRider: models.ForeignKey('Rider', on_delete=models.CASCADE, blank=True, null=True, related_name='fromRider')
+    fromRiderLongitude = models.CharField(max_length = 20, blank=True)
+    fromRiderLatitude = models.CharField(max_length = 20, blank=True)
+    toRider: models.ForeignKey('Rider', on_delete=models.CASCADE, blank=True, null=True, related_name='toRider')
+    toRiderLongitude = models.CharField(max_length = 20, blank=True)
+    toRiderLatitude = models.CharField(max_length = 20, blank=True)
+    drivingTime = models.IntegerField(blank=True)
+    drivingDistance = models.DecimalField(blank=True, decimal_places=4, max_digits=7)
+
+    def __str__(self):
+        return str(self.fromRider) + " to " + str(self.toRider)
