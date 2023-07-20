@@ -2,6 +2,24 @@ import {useEffect, useState} from 'react'
 import DriverRow from './DriverRow';
 import {MdAddCircle} from "react-icons/md"
 
+function HandleNextClick(){
+    /*
+    useEffect(() => {
+        console.log("Calculating rides")
+        fetch('http://127.0.0.1:8000/api/rsvpedriders/') //CHange url
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            //setRiders(data.RSVPedRiders);
+        })
+    }, [])
+    */
+   console.log("Driver pag enext clicked")
+   fetch('http://127.0.0.1:8000/api/calculateRides/')
+   //.then((response) => response.json())
+   //.
+}
+
 function DriversList(props){
     const [rowClicked, setRowClicked] = useState();
     const [editMode, setEditMode] = useState(false);
@@ -20,6 +38,8 @@ function DriversList(props){
     function handleDiscardChangesClick(){
         setEditMode(false)
     }
+
+    
 
     function handleCheck(event){
 
@@ -76,7 +96,7 @@ function DriversList(props){
             </div>
             <div>
                 <a href="#" onClick={handleEditListClick}>Add new driver / Remove driver</a>
-                <p>A total of {numberOfDrivers} people signed up, and at least {Math.ceil(numberOfDrivers/4)} car{Math.ceil(numberOfDrivers/4) >1 && 's'} will be needed</p>
+                <p>A total of {props.numberOfRiders} people signed up, and at least {Math.ceil(props.numberOfRiders/4)} car{Math.ceil(numberOfDrivers/4) >1 && 's'} will be needed</p>
                 
                 {editMode ? 
                 <>
@@ -86,7 +106,7 @@ function DriversList(props){
                 : 
                 <>
                     <button className="default-button" onClick={props.onBackClick}>Back</button>
-                    <button className="default-button" onClick={props.onNextClick}>Next</button>
+                    <button className="default-button" onClick={HandleNextClick}>Next</button>
                 </>}
             </div>
             

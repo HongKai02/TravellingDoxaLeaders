@@ -81,6 +81,7 @@ function AssignRides(){
             onBackClick={handleBackClick}
             drivers = {drivers}
             height = {height}
+            numberOfRiders = {riders ? riders.length : 0}
         />
     </>
 

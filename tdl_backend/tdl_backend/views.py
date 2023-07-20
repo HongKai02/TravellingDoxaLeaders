@@ -89,3 +89,40 @@ def rider(request, id):
             serializer.save()
             return Response({'riders': serializer.data})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+'''
+Called by : 
+- Scheduled job? Like everynight or something. 
+- Clicking next after selecting the list of riders 
+'''
+def solveRides(request):
+    # Get RSVPed rider's names and addresses
+    # Brute force it? 
+        # if 4 or less, just make it one car
+        # Keep making groups of 4, n^4 but whatever la
+
+        # Think with 8 people first maybe? How would that be bruteforced
+       
+    try:
+        today = datetime.date.today()
+        nextFridayDate = today + datetime.timedelta( (4-today.weekday()) % 7)
+        thisEventID = Event.objects.get(date = nextFridayDate)
+        data = RiderRSVP.objects.filter(eventID = thisEventID)
+        serializer = RiderRSVPSerializer(data, many=True)
+        for rider in serializer.data:
+            rider = rider['riderID']
+            print(rider['firstName'])
+            print(rider['longitude'] + rider['latitude'])
+            #print(rider['latitude'])
+            print('\n')
+        return JsonResponse({'Rides': serializer.data})
+    except :
+        return None
+    
+'''
+Called by: 
+- solveRides function above
+- Reassigning riders or something
+'''
+def calculateRideTime():
+    pass
