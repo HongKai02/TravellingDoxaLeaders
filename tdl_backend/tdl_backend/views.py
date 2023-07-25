@@ -17,11 +17,13 @@ def RiderList(request):
         # Invoke serializer (goes form database objects to JSON data) and return to client
         data = Rider.objects.all() # data is what we get from the DB
         serializer = RiderSerializer(data, many=True)
+        print("I HaVE BEEN INVOKEDDDDD")
         return JsonResponse({'riders': serializer.data})
     
     elif request.method == 'POST':
         serializer = RiderSerializer(data=request.data) # Providing only one arg ==> replacing the data entirely
         if serializer.is_valid():
+            print("I HaVE BEEN INVOKEDDDDD")
             serializer.save()
             return Response({'rider': serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -78,12 +80,14 @@ def rider(request, id):
 
     if request.method == 'GET':
         serializer = RiderSerializer(data)
+        print("I HaVE BEEN INVOKEDDDDD")
         return Response({'rider': serializer.data})
     elif request.method == 'DELETE':
         data.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     elif request.method == 'POST':
         serializer = RiderSerializer(data, data=request.data) # First argument original, second new
+        print("I HaVE BEEN INVOKEDDDDD")
         # Validation
         if serializer.is_valid():
             serializer.save()
