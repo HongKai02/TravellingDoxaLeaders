@@ -6,3 +6,5 @@
 env/
 
 tdl_backend/tdl_backend/migrations/
+
+.vscode/
