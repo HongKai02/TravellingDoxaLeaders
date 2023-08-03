@@ -19,6 +19,7 @@ class Rider(models.Model):
     rideBuddy4 = models.CharField(max_length= 30, blank=True)
     longitude = models.CharField(max_length = 20, blank=True)
     latitude = models.CharField(max_length = 20, blank=True)
+    addressChanged = models.BooleanField(default=True, blank=False)
 
     def __str__(self):
         return self.firstName
