@@ -14,6 +14,9 @@ from itertools import chain
 def get_address(rider):
     return rider.addressLine1 + (' ' if rider.addressLine2 else '' ) + rider.addressLine2 + ' ' + rider.city + ' ' + rider.zipcode + ' ' + rider.state
 
+def set_address_changed():
+    pass
+
 
 # Get list of all riders
 all_riders = Rider.objects.all()
@@ -34,7 +37,8 @@ for i in range(len(all_riders)):
 
     formatted_dest = ''
     for j in range(len(dest)):
-        formatted_dest = formatted_dest + '|' + get_address(dest[j])
+        if source.addressChanged or dest[j].addressChanged:
+            formatted_dest = formatted_dest + '|' + get_address(dest[j])
 
     formatted_dest = formatted_dest[1: ] + '|' + event_address # Trim off first deliminator and add event address
 
@@ -73,6 +77,12 @@ for i in range(len(all_riders)):
         trip.drivingDistance = formatted_driving_distance
 
         trip.save()
+
+# Set all rider's addressChanged to false
+for rider in all_riders:
+    rider.addressChanged = False
+
+Rider.objects.bulk_update(all_riders, ['addressChanged'])
 
 
 

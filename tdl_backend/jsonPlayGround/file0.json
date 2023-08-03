@@ -1,0 +1,30 @@
+{
+    "destination_addresses": [
+      "518 W Main St, Madison, WI 53703, USA",
+      "1620 Madison St, Madison, WI 53711, USA",
+      "7012 Companion Ln, Middleton, WI 53562, USA"
+    ],
+    "origin_addresses": ["420 W Dayton St, Madison, WI 53703, USA"],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": { "text": "0.6 km", "value": 588 },
+            "duration": { "text": "2 mins", "value": 113 },
+            "status": "OK"
+          },
+          {
+            "distance": { "text": "2.4 km", "value": 2445 },
+            "duration": { "text": "7 mins", "value": 415 },
+            "status": "OK"
+          },
+          {
+            "distance": { "text": "12.8 km", "value": 12761 },
+            "duration": { "text": "20 mins", "value": 1218 },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  }

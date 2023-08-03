@@ -1,0 +1,16 @@
+{
+  "destination_addresses": ["7012 Companion Ln, Middleton, WI 53562, USA"],
+  "origin_addresses": ["409 W Johnson St, Madison, WI 53703, USA"],
+  "rows": [
+    {
+      "elements": [
+        {
+          "distance": { "text": "12.6 km", "value": 12617 },
+          "duration": { "text": "20 mins", "value": 1176 },
+          "status": "OK"
+        }
+      ]
+    }
+  ],
+  "status": "OK"
+}
