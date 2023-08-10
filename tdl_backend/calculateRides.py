@@ -69,7 +69,39 @@ def enumerateRides(iterable):
             print(set)
             print("\n")
 
+"""
+Lists the number of riders each car should have to cover all riders.
+Returns: A list of possible combinations of number of riders each car should have. Each combination is represented 
+         as a tuple. 
+"""
+def calc_car_seats_required(rider_count, car_count):
+    # Base Cases
+    if rider_count <=4 : 
+        return [(1)]
+    elif rider_count == 5:
+        return [(1,4), (2,3)]
+    elif rider_count == 6:
+        return [(2,4), (3,3)]
+    elif rider_count == 7:
+        return [(3,4)]
+    elif rider_count == 8:
+        return [(4,4)]
+    else:
+        full_list = []
+        for i in range(1,5):
+            if math.ceil((rider_count - i)/4) <= car_count - 1:
+                # i is in tuple, 
+                sub_list = calc_car_seats_required((rider_count - i), car_count - 1) # Remember, this returns a list of tuples, append i to each of the tuples
+                for t in sub_list:
+                    l = list(t)
+                    l.insert(0, i)
+                    l.sort()
+                    tup = tuple(l)
+                    full_list.append(tup)
         
+        res = list(set(full_list))
+        return res
+    
 
 today = datetime.date.today()
 nextFridayDate = today + datetime.timedelta( (4-today.weekday()) % 7)
@@ -88,10 +120,9 @@ cars_needed = math.ceil(len(rsvped_riders) / 4)
   #      print(set)
 
 #enumerateRides(rsvped_riders)
-powerset2(rsvped_riders[:10], cars_needed)
+#powerset2(rsvped_riders[:10], cars_needed)
 
-print(count)
-
+print(calc_car_seats_required(10, 3))
 #for subset in itertools.combinations(rsvped_riders, 4):
     #print(subset)
 # Figure out different ways to group riders
