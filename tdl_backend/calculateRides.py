@@ -122,7 +122,51 @@ cars_needed = math.ceil(len(rsvped_riders) / 4)
 #enumerateRides(rsvped_riders)
 #powerset2(rsvped_riders[:10], cars_needed)
 
-print(calc_car_seats_required(10, 3))
+
+def list_all_rides(rsvped_riders):
+    """
+    List all the possible ride arrangements
+
+    :param rsvped_riders: Stores information about riders who rsvped for the event
+    :return: TODO
+    """
+    car_seats_combinations = calc_car_seats_required(len(rsvped_riders), math.ceil(len(rsvped_riders)/4))
+    print(car_seats_combinations)
+    for t in car_seats_combinations: # Think of t as (2,4,4)
+        list_all_rides_helper(rsvped_riders, t, 0, [])
+
+
+def list_all_rides_helper2(rider_list, tup, counter, ride):
+    for subset in combinations(rider_list, tup[counter]):
+        print(subset)
+
+c = 0
+
+def list_all_rides_helper(rider_list, tup, counter, ride):
+    global c
+    if counter == len(tup):
+        print(ride)
+        c = c+1
+        print("\n\n\n")
+        return # When this returns it doesn't end the function in the call Stack I believe
+    for subset in combinations(rider_list, tup[counter]):
+        remaining_riders = [x for x in rider_list if x not in subset ]
+        new_ride = ride.copy() # Create a copy of the current, possible incomplete ride
+        new_ride.append(subset)
+        list_all_rides_helper(remaining_riders, tup, counter + 1, new_ride )
+
+'''
+for t in car_seats_combination: # For each enumeration of combinations
+    for seat_count in t[0:1]: # For each number in the enumeration
+        comb = (combinations(rsvped_riders, seat_count))
+        for subsets in comb:
+            print(subsets)
+
+'''    
+list_all_rides(rsvped_riders[:10])
+print(c)
+
+
 #for subset in itertools.combinations(rsvped_riders, 4):
     #print(subset)
 # Figure out different ways to group riders
