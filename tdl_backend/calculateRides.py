@@ -10,7 +10,7 @@ from tdl_backend.models import RiderToRiderTravelDistance
 from tdl_backend.models import Event
 from tdl_backend.models import RiderRSVP
 import itertools
-from itertools import chain, combinations
+from itertools import chain, combinations, permutations
 
 
 
@@ -18,9 +18,43 @@ from itertools import chain, combinations
 def get_address(rider):
     return rider.addressLine1 + (' ' if rider.addressLine2 else '' ) + rider.addressLine2 + ' ' + rider.city + ' ' + rider.zipcode + ' ' + rider.state
 
-def get_single_car_ride(rsvped_riders, destination):
-    print("Assume rides generated...")
+# Get riders who rsvped for this week's event, and event's address
+today = datetime.date.today()
+nextFridayDate = today + datetime.timedelta( (4-today.weekday()) % 7)
+thisEvent = Event.objects.get(date = nextFridayDate)
+this_event_address = get_address(thisEvent)
 
+event = Rider.objects.get(firstName = "Destination")
+#rsvped_riders2 = RiderRSVP.objects.filter(eventID = thisEvent)
+rsvped_riders = Rider.objects.filter(riderrsvp__eventID = thisEvent)
+
+
+# Get all rider to rider travel distances 
+#rider_pairs = RiderToRiderTravelDistance.objects.filter(fromRider in rsvped_riders)
+
+#print(rider_pairs)
+'''
+for r in rsvped_riders:
+    rider_pairs_1 = RiderToRiderTravelDistance.objects.filter(fromRider = r)
+    rider_pairs_2 = RiderToRiderTravelDistance.objects.filter(toRider = r)
+'''
+
+def get_optimal_path(riders, destination):
+    for p in (permutations(riders)):
+        rides = []
+        for c, r in enumerate(p):            
+            if c + 1 < len(p):
+                r_next = p[c+1]
+                ride_info = RiderToRiderTravelDistance.objects.filter(fromRider = r, toRider = r_next)
+                print(ride_info)
+
+            else: 
+                ride_info = RiderToRiderTravelDistance.objects.filter(fromRider = r, toRider = event)
+                print(ride_info)
+
+
+        
+            
 
 def pickRiders(iterable):
     r = len(iterable)
@@ -60,16 +94,9 @@ def calc_car_seats_required(rider_count, car_count):
         return res
     
 
-# Get riders who rsvped for this week's event
-today = datetime.date.today()
-nextFridayDate = today + datetime.timedelta( (4-today.weekday()) % 7)
-thisEvent = Event.objects.get(date = nextFridayDate)
-this_event_address = get_address(thisEvent)
-rsvped_riders = RiderRSVP.objects.filter(eventID = thisEvent)
-
 #Algorithm
 if len(rsvped_riders) <= 4:
-    get_single_car_ride()
+    get_optimal_path()
 
 cars_needed = math.ceil(len(rsvped_riders) / 4)
 
@@ -92,17 +119,25 @@ def list_all_rides_helper(rider_list, tup, counter, ride):
         print(ride)
         return # When this returns it doesn't end the function in the call Stack I believe
     for subset in combinations(rider_list, tup[counter]):
+        #get_optimal_path(subset, this_event_address)
+        #TODO: Pass in the sorted subset, i.e. the sequence they sohuld be picked up!!!!
         remaining_riders = [x for x in rider_list if x not in subset ]
         new_ride = ride.copy() # Create a copy of the current, possible incomplete ride
         new_ride.append(subset)
         list_all_rides_helper(remaining_riders, tup, counter + 1, new_ride )
 
-list_all_rides(rsvped_riders[:10])
+#list_all_rides(rsvped_riders[:10])
+
+temp = tuple(rsvped_riders[:3])
+get_optimal_path(temp, this_event_address)
+
 
 
 # Figure out different ways to group riders
 
 # For each way to group riders, note down all ride trips
+
+# Maybe hash all the riders in a trip to store their best combination
 
 """
 r = # riders
