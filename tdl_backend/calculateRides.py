@@ -40,19 +40,38 @@ for r in rsvped_riders:
 '''
 
 def get_optimal_path(riders, destination):
+    shortest_ride = []
+    min_time = 999999
     for p in (permutations(riders)):
-        rides = []
-        for c, r in enumerate(p):            
+        ride = []
+        rider_sequence = []
+        time_count = 0
+        for c, r in enumerate(p):     
+            if not rider_sequence:
+                rider_sequence.append(r)
+
             if c + 1 < len(p):
                 r_next = p[c+1]
-                ride_info = RiderToRiderTravelDistance.objects.filter(fromRider = r, toRider = r_next)
-                print(ride_info)
+                ride_info = RiderToRiderTravelDistance.objects.get(fromRider = r, toRider = r_next)
+                rider_sequence.append(r_next)
+                time_count += ride_info.drivingTime
 
             else: 
-                ride_info = RiderToRiderTravelDistance.objects.filter(fromRider = r, toRider = event)
-                print(ride_info)
+                ride_info = RiderToRiderTravelDistance.objects.get(fromRider = r, toRider = event)
+                rider_sequence.append(event)
+                time_count += ride_info.drivingTime
 
-
+        if time_count < min_time:
+            min_time = time_count
+            ride.append(rider_sequence)
+            ride.append(time_count)
+            shortest_ride = ride
+    
+    if min_time != 999999:
+        print(shortest_ride)
+    
+    else:
+        print("An error has occured")
         
             
 
