@@ -12,7 +12,9 @@ from tdl_backend.models import RiderRSVP
 import itertools
 from itertools import chain, combinations, permutations
 
-
+best_arrangments = [0, 0, 0]# Place holder values 
+best_arrangments_time = [9999, 9999, 9999] # Let this always be sorted
+total_iter = 0
 
 
 def get_address(rider):
@@ -28,16 +30,6 @@ event = Rider.objects.get(firstName = "Destination")
 #rsvped_riders2 = RiderRSVP.objects.filter(eventID = thisEvent)
 rsvped_riders = Rider.objects.filter(riderrsvp__eventID = thisEvent)
 
-
-# Get all rider to rider travel distances 
-#rider_pairs = RiderToRiderTravelDistance.objects.filter(fromRider in rsvped_riders)
-
-#print(rider_pairs)
-'''
-for r in rsvped_riders:
-    rider_pairs_1 = RiderToRiderTravelDistance.objects.filter(fromRider = r)
-    rider_pairs_2 = RiderToRiderTravelDistance.objects.filter(toRider = r)
-'''
 
 def get_optimal_path(riders, destination):
     shortest_ride = []
@@ -58,20 +50,20 @@ def get_optimal_path(riders, destination):
 
             else: 
                 ride_info = RiderToRiderTravelDistance.objects.get(fromRider = r, toRider = event)
-                rider_sequence.append(event)
+                #rider_sequence.append(event)  // Removed this to match the input that list_all_rides_helper is expecting
                 time_count += ride_info.drivingTime
 
         if time_count < min_time:
             min_time = time_count
-            ride.append(rider_sequence)
+            ride.append(tuple(rider_sequence))
             ride.append(time_count)
             shortest_ride = ride
     
     if min_time != 999999:
-        print(shortest_ride)
+        return(shortest_ride)
     
     else:
-        print("An error has occured")
+        return None
         
             
 
@@ -127,6 +119,9 @@ def list_all_rides(rsvped_riders):
     :param rsvped_riders: Stores information about riders who rsvped for the event
     :return: TODO
     """
+
+    #TODO: DO NOT RUN IF LESS THAN 5 riders
+
     car_seats_combinations = calc_car_seats_required(len(rsvped_riders), math.ceil(len(rsvped_riders)/4))
     print(car_seats_combinations)
     for t in car_seats_combinations: # Think of t as (2,4,4)
@@ -134,37 +129,58 @@ def list_all_rides(rsvped_riders):
 
 
 def list_all_rides_helper(rider_list, tup, counter, ride):
-    if counter == len(tup):
-        print(ride)
-        return # When this returns it doesn't end the function in the call Stack I believe
+    global total_iter
+    if counter == len(tup): # One possible ride arangement has been derived
+        # Check if its efficiency ranks top 3 
+        combined_driving_time = 0
+        for group in ride:
+            driving_time = group[len(group)-1]
+            combined_driving_time += driving_time
+            #print(driving_time)
+        print(combined_driving_time)
+        total_iter += 1
+
+        if combined_driving_time < best_arrangments_time[2]:
+            best_arrangments_time.pop # Remove third (last) arangement's time
+            best_arrangments.pop
+            if combined_driving_time < best_arrangments_time[1]:
+                if combined_driving_time < best_arrangments_time[0]:
+                    best_arrangments_time[0] = combined_driving_time
+                    best_arrangments[0] = (ride)
+
+                else:
+                    best_arrangments_time[1] = combined_driving_time
+                    best_arrangments[1] = (ride)
+            else:
+                best_arrangments_time[2] = combined_driving_time
+                best_arrangments[2] = (ride)
+
+        return
+    
     for subset in combinations(rider_list, tup[counter]):
-        #get_optimal_path(subset, this_event_address)
-        #TODO: Pass in the sorted subset, i.e. the sequence they sohuld be picked up!!!!
-        remaining_riders = [x for x in rider_list if x not in subset ]
-        new_ride = ride.copy() # Create a copy of the current, possible incomplete ride
-        new_ride.append(subset)
-        list_all_rides_helper(remaining_riders, tup, counter + 1, new_ride )
-
-#list_all_rides(rsvped_riders[:10])
-
-temp = tuple(rsvped_riders[:3])
-get_optimal_path(temp, this_event_address)
+        opt_path = get_optimal_path(subset, this_event_address)
+        if opt_path: # Null check
+            remaining_riders = [x for x in rider_list if x not in subset]
+            #updated_rides = ride.copy()
+            
+            new_ride = ride.copy()
+            new_ride.append(opt_path)
+            list_all_rides_helper(remaining_riders, tup, counter + 1, new_ride)
 
 
 
-# Figure out different ways to group riders
 
-# For each way to group riders, note down all ride trips
+#list_all_rides(rsvped_riders)
 
-# Maybe hash all the riders in a trip to store their best combination
+for arrangement in best_arrangments:
+    print(arrangement)
+    print("\n")
+print(best_arrangments_time)
+print(total_iter)
 
-"""
-r = # riders
-d = ceil( r/ 4)
-k is a viable trip size if k <=4 and (r - k) / 4 <= d-1 
+\
 
 
-"""
 
 
 
