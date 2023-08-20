@@ -178,7 +178,7 @@ for arrangement in best_arrangments:
 print(best_arrangments_time)
 print(total_iter)
 
-\
+
 
 
 
