@@ -21,12 +21,6 @@ def set_address_changed():
 # Get list of all riders
 all_riders = Rider.objects.all()
 
-# Set all rider's addressChanged to false
-for rider in all_riders:
-    rider.addressChanged = True
-
-Rider.objects.bulk_update(all_riders, ['addressChanged'])
-
 # Get event details
 event = Event.objects.get(eventID = 2) #TODO: This should be changed to get this Friday's 
 event_address = get_address(event)
