@@ -66,7 +66,7 @@ function AssignRides(){
     // Set if the rider list page or driver list page should be displayed
     var content = riderPage ? 
     <>
-        <p className="page-title"> Here are the people who signed up for this week's family group </p>
+        <p className="page-title"> Select who will be attending family group this week </p>
         <RidersList 
             onNextClick={handleNextClick}
             riders = {riders}
