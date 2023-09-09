@@ -45,7 +45,7 @@ function AssignRides(){
 
     // Get list of drivers
     useEffect(() => {
-        console.log("Fecthinc driver data...")
+        console.log("Fetching driver data...")
         fetch('http://127.0.0.1:8000/api/driver/')
         .then((response) => response.json())
         .then((data) => {
@@ -70,7 +70,7 @@ function AssignRides(){
         <RidersList 
             onNextClick={handleNextClick}
             riders = {riders}
-            height={height}
+            height = {height}
             setRiders = {setRiders}
         />
     </> 

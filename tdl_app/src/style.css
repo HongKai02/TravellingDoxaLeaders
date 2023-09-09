@@ -168,7 +168,7 @@ input[type="text"] {
 }
 
 .log-in-form{
-    padding: 15px 15px 20px 20px;
+    padding: 15px 20px 15px  20px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -259,8 +259,21 @@ li:last-child{
 }
 */
 
+
 .rider-list-full li:last-child{
     border-bottom: none;
+}
+
+.rider-list-rider-name{
+    width: 15%;
+}
+
+.rider-list-rider-address{
+    width: 55%;
+}
+
+.rider-list-rider-preference{
+    width: 30;
 }
 
 .rider-list-info-icon{

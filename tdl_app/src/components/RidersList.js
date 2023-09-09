@@ -7,9 +7,10 @@ function RidersList(props){
     //const {height, width} = useWindowDimensions();
     const [rowClicked, setRowClicked] = useState();
     const [editMode, setEditMode] = useState(false);
+    const [checkedRiders, setCheckedRiders] = useState([]);
 
     function handleInfoClick(riderID){
-        // Only one info text box shou display at a time.
+        // Only one info text box should display at a time.
         setRowClicked((prevState) => 
             (prevState == riderID) ?  null : riderID
         )
@@ -44,13 +45,33 @@ function RidersList(props){
         })
     }
 
+    function handleCheck(event){
+
+        const value = event.target.value
+        const isChecked = event.target.checked
+
+        if (isChecked){
+            setCheckedRiders([...checkedRiders, value])
+        }else{
+            var filteredList = []
+            if (checkedRiders){
+                filteredList = checkedRiders.filter((item) => item !== value)
+            }
+            setCheckedRiders(filteredList)
+        }
+
+
+    }
+
     var numberOfRiders = props.riders ? props.riders.length : 0
-    var listFull = numberOfRiders * 40 > props.height * 0.38 ? true : false
+    var listFull = (numberOfRiders-1) * 40 > props.height * 0.38 ? true : false
+    // Using numberOfRiders-1 because we added a 'header row'
 
     return(
         <div>
             <div className="list-of-riders">
                 <ul className={listFull ? "rider-list-full" : undefined}>
+                    <li><span className='rider-list-rider-name' style={{fontWeight: 'bold', paddingLeft: '1%'}}>Rider's Name</span><span className='rider-list-rider-address' style={{fontWeight: 'bold'}}>Rider's Address</span><span className='rider-list-rider-preference' style={{fontWeight: 'bold'}}>Who they want to ride with</span></li>
                     {props.riders ? props.riders.map((rider, index) => {
                         return (
                             <li key={index}>
@@ -61,6 +82,7 @@ function RidersList(props){
                                     isClicked = {rowClicked}
                                     editMode = {editMode}
                                     handleRemoveClick = {handleRemoveClick}
+                                    handleCheck = {handleCheck}
                                 />
                             </li>
                         )
@@ -70,7 +92,7 @@ function RidersList(props){
             </div>
             <div>
                 <a href="#" onClick={handleEditListClick}>Edit List</a>
-                <p>A total of {numberOfRiders} people signed up, and at least {Math.ceil(numberOfRiders/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed</p>
+                <p>A total of {numberOfRiders} people selected, and at least {Math.ceil(numberOfRiders/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed</p>
                 {editMode ? 
                 <>
                     <button className="default-button" onClick={handleDiscardChangesClick}>Discard Changes</button>
