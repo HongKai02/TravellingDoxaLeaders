@@ -170,13 +170,13 @@ def list_all_rides_helper(rider_list, tup, counter, ride):
 
 
 
-#list_all_rides(rsvped_riders)
+def get_best_rides(riders):
+    list_all_rides(riders)
+    for arrangement in best_arrangments:
+        print(arrangement)
+        print("\n")
+    
 
-for arrangement in best_arrangments:
-    print(arrangement)
-    print("\n")
-print(best_arrangments_time)
-print(total_iter)
 
 
 

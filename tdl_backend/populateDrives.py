@@ -28,7 +28,7 @@ event_address = get_address(event)
 #all_riders = all_riders[:3] # This statement is only for development purposes (to reduce api calls)
 
 # API details to Google Distance Matrix API
-api_key = "AIzaSyAk4Bfap0nzIjFV_M8kLqF9KP3r6Y1AanM"
+#api_key = "AIzaSyAk4Bfap0nzIjFV_M8kLqF9KP3r6Y1AanM"
 url = "https://maps.googleapis.com/maps/api/distancematrix/json?"
 
 for i in range(len(all_riders)):
@@ -47,9 +47,9 @@ for i in range(len(all_riders)):
     #print(formatted_dest)
 
     # API Call (Commented out for testing purposes)
-    r = requests.get(
-        url + "origins=" + get_address(source) + "&destinations=" + formatted_dest + "&key=" + api_key
-    )
+    #r = requests.get(
+    #    url + "origins=" + get_address(source) + "&destinations=" + formatted_dest + "&key=" + api_key
+    #)
 
     r = r.json()
 
