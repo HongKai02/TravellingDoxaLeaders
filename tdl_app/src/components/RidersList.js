@@ -76,7 +76,7 @@ function RidersList(props){
     var numberOfRiders = props.riders ? props.riders.length : 0
     var listFull = (numberOfRiders-1) * 40 > props.height * 0.38 ? true : false
     // Using numberOfRiders-1 because we added a 'header row'
-
+    console.log(checkedRiders)
     return(
         <div>
             <div className="list-of-riders">

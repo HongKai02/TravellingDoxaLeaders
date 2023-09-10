@@ -152,7 +152,7 @@ function RiderRow(props){
             </>:
             
             <>
-            <span className="rider-list-rider-name"><input type="checkbox" className="driver-row-checkbox" value={props.riderDetails.id} onChange={props.handleCheck}/>{localRider.firstName} {localRider.lastName}</span> 
+            <span className="rider-list-rider-name"><input type="checkbox" className="driver-row-checkbox" value={props.riderDetails.riderID} onChange={props.handleCheck}/>{localRider.firstName} {localRider.lastName}</span> 
             <span className="rider-list-rider-address">{localRider.addressLine1} {localRider.addressLine2} {localRider.city}, {localRider.zipcode}</span>
             <span className="rider-list-edit-icon"><MdOutlineEdit onClick={() => {handleEditClicked()}} color="blue"/></span>
             </>
