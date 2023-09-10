@@ -21,24 +21,7 @@ function HandleNextClick(){
 }
 
 function DriversList(props){
-    const [rowClicked, setRowClicked] = useState();
-    const [editMode, setEditMode] = useState(false);
     const [checkedDrivers, setCheckedDrivers] = useState([]);
-
-
-    function handleEditListClick(){
-        setEditMode(true)
-        setRowClicked(null)
-    }
-
-    function handleSaveChangesClick(){
-        setEditMode(false)
-    }
-
-    function handleDiscardChangesClick(){
-        setEditMode(false)
-    }
-
     
 
     function handleCheck(event){
@@ -73,32 +56,20 @@ function DriversList(props){
                                 <DriverRow 
                                     key = {index}
                                     driverDetails = {driver}
-                                    handleClick = {1}
-                                    isClicked = {rowClicked}
-                                    editMode = {editMode}
                                     handleCheck = {handleCheck}
                                 />
                                 
                             </li>
                         )
                     }) : null}
-                    {editMode ? <li className="rider-list-add-rider"><MdAddCircle color='green'/> &nbsp; Add new driver</li> : null}
+                    <li className="rider-list-add-rider"><MdAddCircle color='green'/> &nbsp; Add new driver</li>
                 </ul>
             </div>
-            <div>
-                <a href="#" onClick={handleEditListClick}>Add new driver / Remove driver</a>
-                <p>A total of {props.numberOfRiders} people signed up, and at least {Math.ceil(props.numberOfRiders/4)} car{Math.ceil(numberOfDrivers/4) >1 && 's'} will be needed</p>
-                
-                {editMode ? 
-                <>
-                    <button className="default-button" onClick={handleDiscardChangesClick}>Discard Changes</button>
-                    <button className="default-button" onClick={handleSaveChangesClick}>Save Changes</button> 
-                </>
-                : 
-                <>
-                    <button className="default-button" onClick={props.onBackClick}>Back</button>
-                    <button className="default-button" onClick={HandleNextClick}>Next</button>
-                </>}
+
+            <div className='rider-count-message'>
+                <p style={{marginLeft: 'auto', marginRight: 'auto'}}>A total of {props.numberOfRiders} people signed up, and at least {Math.ceil(props.numberOfRiders/4)} car{Math.ceil(numberOfDrivers/4) >1 && 's'} will be needed</p>
+                <button className="default-button" onClick={props.onBackClick}>Back</button>
+                <button className="default-button" onClick={HandleNextClick}>Next</button>
             </div>
             
             
