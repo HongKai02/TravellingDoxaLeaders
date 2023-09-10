@@ -75,6 +75,7 @@ function RidersList(props){
 
     var numberOfRiders = props.riders ? props.riders.length : 0
     var listFull = (numberOfRiders-1) * 40 > props.height * 0.38 ? true : false
+    props.setNumberOfSelectedRiders(checkedRiders.length)
     // Using numberOfRiders-1 because we added a 'header row'
     console.log(checkedRiders)
     return(
@@ -111,7 +112,7 @@ function RidersList(props){
                 </ul>
             </div>
             <div className='rider-count-message'>
-                <p style={{marginLeft: 'auto', marginRight: 'auto'}}>A total of {numberOfRiders} people selected, and at least {Math.ceil(numberOfRiders/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed.</p>
+                <p style={{marginLeft: 'auto', marginRight: 'auto'}}>A total of {props.numberOfSelectedRiders} people selected, and at least {Math.ceil(props.numberOfSelectedRiders/4)} car{Math.ceil(props.numberOfSelectedRiders/4) >1 && 's'} will be needed.</p>
 
                 <button className="default-button" onClick={props.onNextClick}>Next</button>
             </div>

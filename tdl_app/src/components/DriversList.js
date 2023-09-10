@@ -29,8 +29,20 @@ function DriversList(props){
         setAddingDrivers(true)
     }
 
-    function handleRemoveClick(){
-
+    function handleRemoveClick(driverID){
+        console.log("Remove clicked" + driverID)
+        const url = 'http://127.0.0.1:8000/api/driver/' + driverID;
+        fetch(url, { method: 'DELETE'})
+        .then((response) => {
+            if (!response.ok){
+                throw new Error('Editing driver went wrong');
+            }
+            return response.json();
+        })
+        .then((data) => {props.setDrivers(data.drivers)})
+        .catch((e) => {
+            console.log(e);
+        })
     }
 
     function handleAddSaveClick(data){
@@ -93,6 +105,7 @@ function DriversList(props){
                                     key = {index}
                                     driverDetails = {driver}
                                     handleCheck = {handleCheck}
+                                    handleRemoveClick = {handleRemoveClick}
                                 />
                                 
                             </li>
@@ -101,7 +114,6 @@ function DriversList(props){
                     {addingDrivers?
                     <li>
                         <AddDriverRow
-                            handleRemoveClick = {handleRemoveClick}
                             handleAddSaveClick = {handleAddSaveClick}
                             handleCheck = {handleCheck}
                             setAddingDrivers= {() => setAddingDrivers()}
@@ -114,7 +126,7 @@ function DriversList(props){
             </div>
 
             <div className='rider-count-message'>
-                <p style={{marginLeft: 'auto', marginRight: 'auto'}}>A total of {props.numberOfRiders} people signed up, and at least {Math.ceil(props.numberOfRiders/4)} car{Math.ceil(numberOfDrivers/4) >1 && 's'} will be needed</p>
+                <p style={{marginLeft: 'auto', marginRight: 'auto'}}>A total of {props.numberOfSelectedRiders} people signed up, and at least {Math.ceil(props.numberOfSelectedRiders/4)} car{Math.ceil(props.numberOfSelectedDrivers/4) >1 && 's'} will be needed</p>
                 <button className="default-button" onClick={props.onBackClick}>Back</button>
                 <button className="default-button" onClick={HandleNextClick}>Next</button>
             </div>

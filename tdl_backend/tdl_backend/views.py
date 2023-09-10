@@ -80,6 +80,28 @@ def DriverList(request):
             serializer.save()
             return Response({'drivers': serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET', 'POST', 'DELETE'])
+def driver(request, id):
+    try:
+        data = Driver.objects.get(pk = id)
+        fullData = Driver.objects.all()
+    except Driver.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = DriverSerializer(data)
+        return Response({'driver': serializer.data})
+    elif request.method == 'DELETE':
+        data.delete()
+        fullListSerializer = DriverSerializer(fullData, many=True)
+        return JsonResponse({'drivers': fullListSerializer.data})
+    elif request.method == 'POST':
+        serializer = DriverSerializer(data, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'drivers': serializer.data})
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST', 'DELETE']) # POST is the same update. Can be used to edit data
 def rider(request, id):

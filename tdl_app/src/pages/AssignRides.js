@@ -31,6 +31,7 @@ function AssignRides(){
     const [riders, setRiders] = useState()
     const [drivers, setDrivers] = useState()
     const {height, width} = useWindowDimensions()
+    const [numberOfSelectedRiders, setNumberOfSelectedRiders] = useState(0)
     
     // Get list of riders
     useEffect(() => {
@@ -71,17 +72,20 @@ function AssignRides(){
             riders = {riders}
             height = {height}
             setRiders = {setRiders}
+            setNumberOfSelectedRiders = {setNumberOfSelectedRiders}
+            numberOfSelectedRiders = {numberOfSelectedRiders}
         />
     </> 
     :
     <>
-        <p className="page-title"> Who will be driving this week? At least {Math.ceil(numberOfRiders/4)} driver{Math.ceil(numberOfRiders/4) >1 && 's'} needed </p>
+        <p className="page-title"> Who will be driving this week? At least {Math.ceil(numberOfSelectedRiders/4)} driver{Math.ceil(numberOfSelectedRiders/4) >1 && 's'} needed </p>
         <DriversList 
             onBackClick={handleBackClick}
             drivers = {drivers}
             setDrivers = {setDrivers}
             height = {height}
             numberOfRiders = {riders ? riders.length : 0}
+            numberOfSelectedRiders = {numberOfSelectedRiders}
         />
     </>
 

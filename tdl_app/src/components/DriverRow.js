@@ -49,7 +49,8 @@ function DriverRow(props){
     }
 
     function handleDeleteClicked(){
-
+        setEditing(false)
+        props.handleRemoveClick(props.driverDetails.id)
     }
 
     <>
