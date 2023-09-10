@@ -15,12 +15,7 @@ Once the edit button is clicked, all of the following should happen:
 */
 
 function RiderRow(props){   
-    //var riderName = props.riderDetails.riderID.firstName + " " + props.riderDetails.riderID.lastName
-    //var riderAddress = props.riderDetails.riderID.addressLine1 + " " + props.riderDetails.riderID.addressLine2 + " "  + props.riderDetails.riderID.city + " " + props.riderDetails.riderID.zipcode
-
     const [localRider, setLocalRider] = useState(props.riderDetails)
-    //const [riderFirstName, setRiderFirstName] = useState(props.riderDetails.firstName)
-    //const [riderAddress, setRiderAddress] = useState(props.riderDetails.addressLine1 + " " + props.riderDetails.addressLine2 + " "  + props.riderDetails.riderID.city + " " + props.riderDetails.riderID.zipcode)
     const [editing, setEditing] = useState(false)
     const [formData, setFormData] = useState({
         riderFirstName: props.riderDetails.firstName,
@@ -64,7 +59,6 @@ function RiderRow(props){
             "rideBuddy1": null
         }
 
-        setEditing(false)
         const url = 'http://127.0.0.1:8000/api/rider/' + props.riderDetails.riderID;
         fetch(url, {
             method: 'POST',
@@ -77,22 +71,15 @@ function RiderRow(props){
             return response.json();
         })
         .then((data) => {
-            console.log(data.riders)
             setLocalRider(data.riders)
-            //props.setRiderTracker((prev) => !prev)
-            //props.setRiders([...props.riders, data.riders])
+            setEditing(false)
         })
 
-        // Gotta pass in data to this call as well 
-        props.handleSaveClick(props.riderDetails.riderID.riderID)
-        //console.log(formData['riderName'])
-        //console.log(formData['riderAddress'])
-        //setRiderName(formData['riderName'])
-        //setRiderAddress(formData['riderAddress'])
     }
 
     function handleDiscardClicked(){
         setEditing(false)
+        
         // Put all form data back to their original values
         setFormData({
             riderFirstName: props.riderDetails.firstName,
@@ -170,8 +157,8 @@ function RiderRow(props){
             </>:
             
             <>
-            <span className="rider-list-rider-name"><input type="checkbox" className="driver-row-checkbox" value={props.riderDetails.id} onChange={props.handleCheck}/>{localRider.firstName} {props.riderDetails.lastName}</span> 
-            <span className="rider-list-rider-address">{props.riderDetails.addressLine1} {props.riderDetails.addressLine2} {props.riderDetails.city}, {props.riderDetails.zipcode}</span>
+            <span className="rider-list-rider-name"><input type="checkbox" className="driver-row-checkbox" value={props.riderDetails.id} onChange={props.handleCheck}/>{localRider.firstName} {localRider.lastName}</span> 
+            <span className="rider-list-rider-address">{localRider.addressLine1} {localRider.addressLine2} {localRider.city}, {localRider.zipcode}</span>
             <span className="rider-list-edit-icon"><MdOutlineEdit onClick={() => {handleEditClicked()}} color="blue"/></span>
             </>
             }
@@ -187,10 +174,8 @@ function RiderRow(props){
                     <p className="rider-row-rider-address">
                     {props.riderDetails.addressLine1} {props.riderDetails.city}, {props.riderDetails.zipcode}
                     </p> 
-                </div>
-                
+                </div> 
             }
-
         </>
         
     )

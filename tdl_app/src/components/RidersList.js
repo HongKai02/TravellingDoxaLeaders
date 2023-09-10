@@ -74,10 +74,6 @@ function RidersList(props){
         })
     }
 
-    function handleSaveClick(riderID){
-        console.log("Updating rider: "+ riderID)
-    }
-
     function handleAddRiderClick(){
         console.log("add rider clicked")
         setAddingParticipants(true)
@@ -118,7 +114,6 @@ function RidersList(props){
                                     isClicked = {rowClicked}
                                     editMode = {editMode}
                                     handleRemoveClick = {handleRemoveClick}
-                                    handleSaveClick = {handleSaveClick}
                                     handleCheck = {handleCheck}
                                     riders = {props.riders}
                                     setRiders = {props.setRiders}
@@ -135,7 +130,6 @@ function RidersList(props){
                             editMode = {editMode}
                             handleRemoveClick = {handleRemoveClick}
                             handleAddSaveClick = {handleAddSaveClick}
-                            handleSaveClick = {handleSaveClick}
                             handleCheck = {handleCheck}
                             setAddingParticipants= {() => setAddingParticipants()}
                         />
