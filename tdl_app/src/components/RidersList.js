@@ -7,29 +7,8 @@ import {MdAddCircle} from "react-icons/md"
 function RidersList(props){
     //const {height, width} = useWindowDimensions();
     const [rowClicked, setRowClicked] = useState();
-    const [editMode, setEditMode] = useState(false);
     const [checkedRiders, setCheckedRiders] = useState([]);
     const [addingParticipants, setAddingParticipants] = useState(false);
-
-    function handleInfoClick(riderID){
-        // Only one info text box should display at a time.
-        setRowClicked((prevState) => 
-            (prevState == riderID) ?  null : riderID
-        )
-    }
-
-    function handleEditListClick(){
-        setEditMode(true)
-        setRowClicked(null)
-    }
-
-    function handleSaveChangesClick(){
-        setEditMode(false)
-    }
-
-    function handleDiscardChangesClick(){
-        setEditMode(false)
-    }
 
     function handleRemoveClick(riderID){
         console.log("Remove clicked " + riderID)
@@ -75,7 +54,6 @@ function RidersList(props){
     }
 
     function handleAddRiderClick(){
-        console.log("add rider clicked")
         setAddingParticipants(true)
     }
 
@@ -110,14 +88,10 @@ function RidersList(props){
                                 <RiderRow 
                                     key={index}
                                     riderDetails = {rider}
-                                    handleClick = {handleInfoClick}
-                                    isClicked = {rowClicked}
-                                    editMode = {editMode}
                                     handleRemoveClick = {handleRemoveClick}
                                     handleCheck = {handleCheck}
                                     riders = {props.riders}
                                     setRiders = {props.setRiders}
-                                    setRiderTracker = {props.setRiderTracker}
                                 />
                             </li>
                         )
@@ -125,9 +99,6 @@ function RidersList(props){
                     {addingParticipants? 
                     <li>
                         <AddRiderRow 
-                            handleClick = {handleInfoClick}
-                            isClicked = {rowClicked}
-                            editMode = {editMode}
                             handleRemoveClick = {handleRemoveClick}
                             handleAddSaveClick = {handleAddSaveClick}
                             handleCheck = {handleCheck}
@@ -139,16 +110,10 @@ function RidersList(props){
                     <li className="rider-list-add-rider"><MdAddCircle onClick={handleAddRiderClick}color='green'/> &nbsp; Add participants</li>
                 </ul>
             </div>
-            <div>
-                <a href="#" onClick={handleEditListClick}>Edit List</a>
-                <p>A total of {numberOfRiders} people selected, and at least {Math.ceil(numberOfRiders/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed</p>
-                {editMode ? 
-                <>
-                    <button className="default-button" onClick={handleDiscardChangesClick}>Discard Changes</button>
-                    <button className="default-button" onClick={handleSaveChangesClick}>Save Changes</button>
-                </> 
-                : 
-                <button className="default-button" onClick={props.onNextClick}>Next</button>}
+            <div className='rider-count-message'>
+                <p style={{marginLeft: 'auto', marginRight: 'auto'}}>A total of {numberOfRiders} people selected, and at least {Math.ceil(numberOfRiders/4)} car{Math.ceil(numberOfRiders/4) >1 && 's'} will be needed.</p>
+
+                <button className="default-button" onClick={props.onNextClick}>Next</button>
             </div>
             
             

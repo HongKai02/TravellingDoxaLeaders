@@ -1,10 +1,5 @@
-import {PiInfoThin} from "react-icons/pi"
-import {IoIosRemoveCircleOutline} from "react-icons/io"
-
-import {MdRemoveCircle} from "react-icons/md"
-
 import {MdOutlineEdit} from "react-icons/md"
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 
 /*
 Once the edit button is clicked, all of the following should happen:
@@ -79,7 +74,7 @@ function RiderRow(props){
 
     function handleDiscardClicked(){
         setEditing(false)
-        
+
         // Put all form data back to their original values
         setFormData({
             riderFirstName: props.riderDetails.firstName,
@@ -162,22 +157,7 @@ function RiderRow(props){
             <span className="rider-list-edit-icon"><MdOutlineEdit onClick={() => {handleEditClicked()}} color="blue"/></span>
             </>
             }
-            
-
-            {props.editMode ? 
-            <span className="rider-list-info-icon"><MdRemoveCircle onClick={() => {props.handleRemoveClick(props.riderDetails.riderID)}}color="red"/></span> : 
-            <span className="rider-list-info-icon"><PiInfoThin onClick={() => {props.handleClick(props.riderDetails.riderID, props.index)}} /></span>
-            }
-            
-            {props.isClicked === props.riderDetails.riderID && 
-                <div className="speech-box">
-                    <p className="rider-row-rider-address">
-                    {props.riderDetails.addressLine1} {props.riderDetails.city}, {props.riderDetails.zipcode}
-                    </p> 
-                </div> 
-            }
         </>
-        
     )
 }
 

@@ -31,7 +31,6 @@ function AssignRides(){
     const [riders, setRiders] = useState()
     const [drivers, setDrivers] = useState()
     const {height, width} = useWindowDimensions()
-    const [riderTracker, setRiderTracker] = useState(false)
     
     // Get list of riders
     useEffect(() => {
@@ -41,7 +40,7 @@ function AssignRides(){
         .then((data) => {
             setRiders(data.riders);
         })
-    }, [riderTracker]) // The empty list here is to specify that this effect should only run once, on load
+    }, []) // The empty list here is to specify that this effect should only run once, on load
 
     // Get list of drivers
     useEffect(() => {
@@ -72,7 +71,6 @@ function AssignRides(){
             riders = {riders}
             height = {height}
             setRiders = {setRiders}
-            setRiderTracker = {setRiderTracker}
         />
     </> 
     :
