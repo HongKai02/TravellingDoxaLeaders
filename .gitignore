@@ -8,3 +8,9 @@ env/
 tdl_backend/tdl_backend/migrations/
 
 .vscode/
+
+tdl_backend/Mathsy.txt
+
+tdl_backend/testing.py
+
+tdl_backend/tdl_backend/waysToOptimize.txt

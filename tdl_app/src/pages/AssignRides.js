@@ -31,17 +31,17 @@ function AssignRides(){
     const [riders, setRiders] = useState()
     const [drivers, setDrivers] = useState()
     const {height, width} = useWindowDimensions()
+    const [riderTracker, setRiderTracker] = useState(false)
     
     // Get list of riders
     useEffect(() => {
-        console.log("Fetching data...")
-        fetch('http://127.0.0.1:8000/api/rsvpedriders/')
+        console.log("Fetching rider data...")
+        fetch('http://127.0.0.1:8000/api/riders/')
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
-            setRiders(data.RSVPedRiders);
+            setRiders(data.riders);
         })
-    }, []) // The empty list here is to specify that this effect should only run once, on load
+    }, [riderTracker]) // The empty list here is to specify that this effect should only run once, on load
 
     // Get list of drivers
     useEffect(() => {
@@ -72,6 +72,7 @@ function AssignRides(){
             riders = {riders}
             height = {height}
             setRiders = {setRiders}
+            setRiderTracker = {setRiderTracker}
         />
     </> 
     :

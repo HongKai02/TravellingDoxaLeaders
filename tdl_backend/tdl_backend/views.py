@@ -23,9 +23,9 @@ def RiderList(request):
     elif request.method == 'POST':
         serializer = RiderSerializer(data=request.data) # Providing only one arg ==> replacing the data entirely
         if serializer.is_valid():
-            print("I HaVE BEEN INVOKEDDDDD")
+            print("Adding a rider to the database")
             serializer.save()
-            return Response({'rider': serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({'riders': serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -75,6 +75,7 @@ def DriverList(request):
 def rider(request, id):
     try:
         data = Rider.objects.get(pk=id)
+        fullData = Rider.objects.all()
     except Rider.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -84,7 +85,9 @@ def rider(request, id):
         return Response({'rider': serializer.data})
     elif request.method == 'DELETE':
         data.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        fullListSerializer = RiderSerializer(fullData, many=True)
+        print("Success")
+        return JsonResponse({'riders': fullListSerializer.data})
     elif request.method == 'POST':
         serializer = RiderSerializer(data, data=request.data) # First argument original, second new
         print("I HaVE BEEN INVOKEDDDDD")

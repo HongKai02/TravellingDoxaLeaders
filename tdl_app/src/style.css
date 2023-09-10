@@ -265,19 +265,31 @@ li:last-child{
 }
 
 .rider-list-rider-name{
-    width: 15%;
+    width: 25%;
 }
 
 .rider-list-rider-address{
-    width: 55%;
+    width: 50%;
 }
 
 .rider-list-rider-preference{
-    width: 30;
+    width: 25%;
 }
 
 .rider-list-info-icon{
     margin-left: auto;
+}
+
+.rider-list-edit-icon{
+    margin-left: auto;
+}
+
+.edit-list-div{
+    color: blue;
+}
+
+.edit-list-buttons{
+    cursor: pointer;
 }
 
 .speech-box{
