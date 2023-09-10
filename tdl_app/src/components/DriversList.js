@@ -56,15 +56,6 @@ function DriversList(props){
             }
             setCheckedDrivers(filteredList)
         }
-
-
-        /*
-        setCheckedDrivers(prevChecked => {
-            return [
-
-            ]
-        })
-        */
         
     }
 

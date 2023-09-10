@@ -75,7 +75,7 @@ function AssignRides(){
     </> 
     :
     <>
-        <p className="page-title"> Who will be driving this week and how many people can they pickup? At least {Math.ceil(numberOfRiders/4)} driver{Math.ceil(numberOfRiders/4) >1 && 's'} needed </p>
+        <p className="page-title"> Who will be driving this week? At least {Math.ceil(numberOfRiders/4)} driver{Math.ceil(numberOfRiders/4) >1 && 's'} needed </p>
         <DriversList 
             onBackClick={handleBackClick}
             drivers = {drivers}
