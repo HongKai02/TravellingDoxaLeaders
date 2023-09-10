@@ -426,6 +426,15 @@ a {
     background-color: green;
 }
 
+.driver-list-buttons{
+    display: flex;
+    align-self: center;
+}
+
+.driver-list-button{
+    margin: 4%;
+}
+
 .car-capacity{
     padding-left: 5px;
     padding-right: 5px;

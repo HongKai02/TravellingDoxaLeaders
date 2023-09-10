@@ -4,6 +4,7 @@ import CreateAccount from "./pages/CreateAccount"
 import LogInPage from "./pages/LogInPage"
 import AssignRides from "./pages/AssignRides"
 import ForgotPassword from "./pages/ForgotPassword"
+import ViewRides from './pages/ViewRides'
 
 
 function App(){
@@ -17,6 +18,7 @@ function App(){
       <Route path ="/LogInPage" element={<LogInPage />} />
       <Route path ="/AssignRides" element={<AssignRides />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      <Route path="/ViewRides" element={<ViewRides />} />
       
     </Routes>
   )

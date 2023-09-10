@@ -2,8 +2,11 @@ import {useEffect, useState} from 'react'
 import DriverRow from './DriverRow';
 import {MdAddCircle} from "react-icons/md"
 import AddDriverRow from "./AddDriverRow"
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-function HandleNextClick(){
+function handleNextClick(){
+    //const navigate = useNavigate()
     /*
     useEffect(() => {
         console.log("Calculating rides")
@@ -16,14 +19,18 @@ function HandleNextClick(){
     }, [])
     */
    console.log("Driver pag enext clicked")
-   fetch('http://127.0.0.1:8000/api/calculateRides/')
+   //fetch('http://127.0.0.1:8000/api/calculateRides/')
    //.then((response) => response.json())
    //.
+   //navigate('ViewRides')
+
+
 }
 
 function DriversList(props){
     const [checkedDrivers, setCheckedDrivers] = useState([]);
     const [addingDrivers, setAddingDrivers] = useState(false);
+    const navigate = useNavigate();
 
     function handleAddDriverClick(){
         setAddingDrivers(true)
@@ -126,9 +133,12 @@ function DriversList(props){
             </div>
 
             <div className='rider-count-message'>
-                <p style={{marginLeft: 'auto', marginRight: 'auto'}}>A total of {props.numberOfSelectedRiders} people signed up, and at least {Math.ceil(props.numberOfSelectedRiders/4)} car{Math.ceil(props.numberOfSelectedDrivers/4) >1 && 's'} will be needed</p>
-                <button className="default-button" onClick={props.onBackClick}>Back</button>
-                <button className="default-button" onClick={HandleNextClick}>Next</button>
+                <p style={{marginLeft: 'auto', marginRight: 'auto'}}>A total of {props.numberOfSelectedRiders} people selected, and at least {Math.ceil(props.numberOfSelectedRiders/4)} car{Math.ceil(props.numberOfSelectedDrivers/4) >1 && 's'} will be needed</p>
+                <div className='driver-list-buttons'>
+                    <button className="default-button driver-list-button" onClick={props.onBackClick}>Back</button>
+                    <button className="default-button driver-list-button" onClick={() => navigate('/ViewRides')}>Calculate Rides!</button>
+                </div>
+                
             </div>
             
             
