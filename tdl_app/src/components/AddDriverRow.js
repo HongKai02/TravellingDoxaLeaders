@@ -1,20 +1,15 @@
-
+import {MdRemoveCircle} from "react-icons/md"
 import {MdOutlineEdit} from "react-icons/md"
-
-import {useState} from 'react'
-
+import {useEffect, useState} from 'react'
 
 
-
-function DriverRow(props){
-    const [localDriver, setLocalDriver] = useState(props.driverDetails)
-    const [editing, setEditing] = useState(false)
+function AddDriverRow(props){   
     const [formData, setFormData] = useState({
-        driverFirstName: props.driverDetails.firstName,
-        driverLastName: props.driverDetails.lastName,
-        driverStreetAddress: props.driverDetails.addressLine1,
-        driverCity: props.driverDetails.city,
-        driverZipcode: props.driverDetails.zipcode
+        driverFirstName: "",
+        driverLastName: "",
+        driverStreetAddress: "",
+        driverCity: "",
+        driverZipcode: ""
     })
 
     function handleFormChange(event){
@@ -27,39 +22,42 @@ function DriverRow(props){
         })
     }
 
-    function handleEditClicked(){
-        setEditing(true)
-    }
-
-    function handleSaveClick(){
+    function handleSaveClickedLocal(){
+        var data = {
+                "firstName": formData.driverFirstName,
+                "lastName": formData.driverLastName,
+                "phoneNumber": "",
+                "addressLine1": formData.driverStreetAddress,
+                "addressLine2": "",
+                "city": formData.driverCity,
+                "zipcode": formData.driverZipcode,
+                "state": "Wisconsin",
+                //"preferredRider1": "",
+                //"preferredRider2": "",
+                //"preferredRider3": "",
+                //"preferredRider4": "",
+                "longitude": "",
+                "latitude": "",
+                "carCapacity": 4,
+            }
+        props.handleAddSaveClick(data)
 
     }
 
     function handleDiscardClicked(){
-        setEditing(false)
-
+        props.setAddingParticipants(false)
         // Put all form data back to their original values
         setFormData({
-            driverFirstName: props.driverDetails.firstName,
-            driverLastName: props.driverDetails.lastName,
-            driverStreetAddress: props.driverDetails.addressLine1,
-            driverCity: props.driverDetails.city,
-            driverZipcode: props.driverDetails.zipcode
+            driverFirstName: "",
+            driverLastName: "",
+            driverStreetAddress: "",
+            driverCity: "",
+            driverZipcode: ""
         })
     }
 
-    function handleDeleteClicked(){
-
-    }
-
-    <>
-    <input type="checkbox" className="driver-row-checkbox" value={props.driverDetails.id} onChange={props.handleCheck}/>
-    {props.driverDetails.firstName} {props.driverDetails.lastName}
-    </>
-
     return(
         <>
-            {editing ?
             <>
             <span className="rider-list-rider-name">
                 <span>First Name: </span>
@@ -111,20 +109,13 @@ function DriverRow(props){
             </span>
 
             <div className="edit-list-div">
-                <span className="edit-list-buttons" onClick={()=> handleDeleteClicked()}>Delete</span>/
                 <span className="edit-list-buttons" onClick={()=> handleDiscardClicked()}>Discard Changes</span>/
-                <span className="edit-list-buttons" onClick={()=> handleSaveClick()}>Save</span>
+                <span className="edit-list-buttons" onClick={()=> handleSaveClickedLocal()}>Save</span>
             </div>
-            </>:
-            
-            <>
-            <span className="rider-list-rider-name"><input type="checkbox" className="driver-row-checkbox" value={props.driverDetails.id} onChange={props.handleCheck}/>{localDriver.firstName} {localDriver.lastName}</span> 
-            <span className="rider-list-rider-address">{localDriver.addressLine1} {localDriver.addressLine2} {localDriver.city} {localDriver.zipcode}</span>
-            <span className="rider-list-edit-icon"><MdOutlineEdit onClick={() => {handleEditClicked()}} color="blue"/></span>
             </>
-            }
         </>
+        
     )
 }
 
-export default DriverRow
+export default AddDriverRow

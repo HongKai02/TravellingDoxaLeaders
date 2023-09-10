@@ -66,10 +66,20 @@ def riderRSVP(request, id):
             return Response({'riderRSVP': serializer.data})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'POST'])
 def DriverList(request):
-    data = Driver.objects.all()
-    serializer = DriverSerializer(data, many=True)
-    return JsonResponse({'drivers': serializer.data})
+    if request.method == 'GET':
+        data = Driver.objects.all()
+        serializer = DriverSerializer(data, many=True)
+        return JsonResponse({'drivers': serializer.data})
+    
+    elif request.method == 'POST':
+        serializer = DriverSerializer(data = request.data)
+        if serializer.is_valid():
+            print("Adding a driver to the database")
+            serializer.save()
+            return Response({'drivers': serializer.data}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST', 'DELETE']) # POST is the same update. Can be used to edit data
 def rider(request, id):

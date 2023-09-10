@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import DriverRow from './DriverRow';
 import {MdAddCircle} from "react-icons/md"
+import AddDriverRow from "./AddDriverRow"
 
 function HandleNextClick(){
     /*
@@ -22,6 +23,41 @@ function HandleNextClick(){
 
 function DriversList(props){
     const [checkedDrivers, setCheckedDrivers] = useState([]);
+    const [addingDrivers, setAddingDrivers] = useState(false);
+
+    function handleAddDriverClick(){
+        setAddingDrivers(true)
+    }
+
+    function handleRemoveClick(){
+
+    }
+
+    function handleAddSaveClick(data){
+        console.log("Adding driver: ")
+        const url = 'http://127.0.0.1:8000/api/drivers/';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+            if (!response.ok){
+                throw new Error('Adding drivers went wrong');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            // Assume add was successful
+            props.setDrivers([...props.drivers, data.drivers])
+            setAddingDrivers(false)
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    }
     
 
     function handleCheck(event){
@@ -62,7 +98,18 @@ function DriversList(props){
                             </li>
                         )
                     }) : null}
-                    <li className="rider-list-add-rider"><MdAddCircle color='green'/> &nbsp; Add new driver</li>
+                    {addingDrivers?
+                    <li>
+                        <AddDriverRow
+                            handleRemoveClick = {handleRemoveClick}
+                            handleAddSaveClick = {handleAddSaveClick}
+                            handleCheck = {handleCheck}
+                            setAddingDrivers= {() => setAddingDrivers()}
+                        />
+                    </li>
+                    :
+                    undefined}
+                    <li className="rider-list-add-rider"><MdAddCircle onClick={handleAddDriverClick} color='green'/> &nbsp; Add new driver</li>
                 </ul>
             </div>
 

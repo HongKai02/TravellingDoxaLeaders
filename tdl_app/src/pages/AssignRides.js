@@ -45,7 +45,7 @@ function AssignRides(){
     // Get list of drivers
     useEffect(() => {
         console.log("Fetching driver data...")
-        fetch('http://127.0.0.1:8000/api/driver/')
+        fetch('http://127.0.0.1:8000/api/drivers/')
         .then((response) => response.json())
         .then((data) => {
             setDrivers(data.drivers);
@@ -79,6 +79,7 @@ function AssignRides(){
         <DriversList 
             onBackClick={handleBackClick}
             drivers = {drivers}
+            setDrivers = {setDrivers}
             height = {height}
             numberOfRiders = {riders ? riders.length : 0}
         />
